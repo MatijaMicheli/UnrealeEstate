@@ -1,0 +1,414 @@
+* {
+  box-sizing: border-box; /* Manca reset base */
+}
+
+@font-face {
+    font-family: 'Evidence';
+    src: url('EvidenceFont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+  --base-clr: #11121a;
+  --line-clr: #42434a;
+  --hover-clr: #222533;
+  --text-clr: #e6e6ef;
+  --accent-clr: #5e63ff;
+  --secondary-text-clr: #b0b3c1;
+}
+
+body {
+  margin: 0;
+  background-color: black;
+  font-family: 'Arial', sans-serif;
+  color: var(--text-clr);
+}
+
+
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+}
+
+/* video nascosto fino al reveal */
+#video-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  max-width: max-content;
+  transition: opacity 1s ease-in-out;
+  z-index: 1;
+}
+
+#main-video {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+#hero {
+  position: relative;
+  height: 100vh;
+  margin-left: 60px;
+  width: calc(100vw - 60px);
+  transition: margin-left 0.3s ease;
+  overflow: visible; /* Modificato da hidden a visible */
+  z-index: 2; /* Aggiunto z-index */
+}
+
+
+
+#video-container.show {
+  opacity: 1;
+}
+
+/* SVG initially invisible and centered */
+.disegno-svg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 3;
+  transition: transform 1s ease-out, opacity 0.5s ease-out;
+}
+
+/* quando “show” viene aggiunto via JS */
+.disegno-svg.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* dopo il reveal, posizioniamo SVG in alto */
+.disegno-svg.sticky {
+  top: 5%; 
+  left: 50%;
+  transform: translateX(-50%) scale(0.7);
+  opacity: 1;  
+  z-index: 3; 
+  transition:
+    transform 0.8s ease-in-out,
+    top 0.8s ease-in-out,
+    opacity 0.5s ease-in-out;
+}
+
+.disegno-svg svg path {
+  fill: white;
+  stroke: white;
+}
+
+.disegno-svg svg {
+  filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
+}
+
+/* 2) Effetto riflesso */
+.disegno-svg::after {
+  content: "";
+  position: absolute;
+  top: calc(50% + 1px);   
+  left: 50%;
+  transform: translateX(-50%) scaleY(-1); 
+  width: 100%;
+  height: 100%;
+  background: inherit; 
+  background-repeat: no-repeat;
+  background-position: center;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+  opacity: 0.4;    
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  25% { transform: scale(1.1); opacity: 0.9; }
+  50% { transform: scale(1); opacity: 1; }
+  75% { transform: scale(1.1); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pulse-twice {
+  animation: pulse 1s ease-in-out;
+}
+
+/* Side Menu */
+#side-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 60px;
+    background: rgba(17, 18, 26, 0.98);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid var(--line-clr);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-x: visible;
+    padding-top: 30px;
+    font-family: 'Evidence';
+}
+
+#side-menu:hover {
+    width: 240px;
+    overflow-x: visible;
+}
+
+#side-menu:hover ~ #hero {
+  margin-left: 240px;
+  width: calc(100vw - 240px);
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+#side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#side-menu li {
+    position: relative;
+    width: 100%;
+}
+
+#side-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+.menu-item > a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-clr);
+    text-decoration: none;
+    white-space: nowrap;
+    position: relative;
+    transition: background 0.2s ease;
+}
+
+.menu-item:hover > a {
+    background: var(--hover-clr);
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    filter: invert(1);
+    transition: transform 0.2s ease;
+}
+
+.submenu-arrow {
+    width: 18px;
+    height: 18px;
+    margin-left: auto;
+    opacity: 0;
+    transform: rotate(-90deg);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    filter: invert(1);
+}
+
+.menu-item span {
+    opacity: 0;
+    width: 0;
+}
+
+#side-menu:hover .menu-item span,
+#side-menu:hover .submenu-arrow {
+    opacity: 1;
+    width: auto;
+}
+
+#side-menu:hover .submenu-arrow {
+    transform: rotate(0);
+}
+
+/* Sub Menu */
+.sub-menu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: var(--base-clr);
+    border: 1px solid var(--line-clr);
+    border-radius: 0 8px 8px 0;
+    min-width: 200px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 10px 0;
+}
+
+.has-submenu:hover .sub-menu {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sub-menu .menu-icon {
+    filter: invert(0.8);
+}
+
+.sub-menu a {
+    padding: 12px 20px;
+    font-size: 0.9em;
+    color: var(--text-clr);
+}
+
+.sub-menu a:hover {
+    background: var(--hover-clr);
+}
+
+.menu-social {
+    position: relative;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 0;
+    transition: all 0.3s ease;
+    transform: none;
+    bottom: auto;
+    background: transparent;
+}
+
+.menu-social-container {
+    margin-top: auto;
+    width: 100%;
+    bottom: 0;
+    position: sticky;
+}
+
+#side-menu:hover .menu-social {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    filter: invert(0.8);
+    transition: all 0.3s ease;
+}
+
+.social-link:hover .social-icon {
+    filter: invert(1);
+    transform: scale(1.1);
+}
+
+@keyframes slow-pulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+/* 2) Applichiamo l’animazione alle icone social con delay diversi */
+.menu-social .social-icon {
+  animation: slow-pulse 2.4s ease-in-out infinite;
+}
+
+/* impostiamo un delay progressivo: 0s, 0.8s, 1.6s */
+.menu-social .social-link:nth-child(1) .social-icon {
+  animation-delay: 0s;
+}
+
+.menu-social .social-link:nth-child(2) .social-icon {
+  animation-delay: 0.8s;
+}
+
+.menu-social .social-link:nth-child(3) .social-icon {
+  animation-delay: 1.6s;
+}
+
+@media (max-width: 768px) {
+    .disegno-svg {
+      transform: translate(-50%, -50%) scale(0.4) !important;
+      margin-left: 30px;
+      margin-top: 50px;
+    }
+
+    #side-menu {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 100vh;
+        backdrop-filter: blur(10px);
+        padding-top: 20px;
+        border-right: 1px solid var(--line-clr);
+        border-top: none;
+        z-index: 1000;
+        justify-content: flex-start;
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s;
+    }
+
+
+    #side-menu ul {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .menu-item > a {
+        flex-direction: row;
+        padding: 12px 15px;
+    }
+
+    .sub-menu {
+        position: absolute;
+        top: -20px;
+        width: 180px;
+        min-width: 200px;
+        border-radius: 0 8px 8px 0;
+        left: 100%;
+        transform: translateX(0);
+        max-height: 90vh;
+        overflow-y: auto;
+        z-index: 2000;
+        box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        border-left: none;
+        margin-left: -1px; /* Allinea perfettamente col bordo */
+        transition: opacity 0.3s, transform 0.3s;
+        transform: translateX(1px);
+    }
+
+
+    .has-submenu.active .sub-menu {
+        transform: translateY(0);
+        max-height: none;
+    }
+
+    #side-menu:hover ~ #hero {
+        margin-left: 240px;
+        width: calc(100vw - 240px);
+    }
+
+    #side-menu.submenu-active {
+        width: 60px;
+        overflow: visible;
+    }
+
+    #side-menu.submenu-active ~ #hero {
+        margin-left: 60px;
+        width: calc(100vw - 60px);
+    }
+
+    #side-menu:hover .menu-social {
+        flex-direction: column;
+    }
+
+}
