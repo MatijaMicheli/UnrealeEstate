@@ -4,9 +4,23 @@
 
 @font-face {
     font-family: 'Evidence';
-    src: url('EvidenceFont.ttf') format('truetype');
+    src: url('EvidenceFont.woff2') format('woff2'), /* Formato moderno */
+         url('EvidenceFont.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CherrySwash-regular';
+    src: url('CherrySwash-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+@font-face {
+    font-family: 'CherrySwash-bold';
+    src: url('CherrySwash-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: bold;
 }
 
 :root {
@@ -30,7 +44,18 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: -3;
+  z-index: 0;
+}
+
+main {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: white;
+  text-align: center;
+  pointer-events: none;
 }
 
 /* video nascosto fino al reveal */
@@ -42,7 +67,7 @@ body {
   width: 100vw;
   max-width: max-content;
   transition: opacity 1s ease-in-out;
-  z-index: 1;
+  z-index: 2;
 }
 
 #main-video {
@@ -58,9 +83,9 @@ body {
   height: 100vh;
   margin-left: 60px;
   width: calc(100vw - 60px);
-  transition: margin-left 0.3s ease;
-  overflow: visible; /* Modificato da hidden a visible */
-  z-index: 2; /* Aggiunto z-index */
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  overflow: visible;
+  z-index: 1;
 }
 
 
@@ -79,13 +104,11 @@ body {
   transition: transform 1s ease-out, opacity 0.5s ease-out;
 }
 
-/* quando “show” viene aggiunto via JS */
 .disegno-svg.show {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
 }
 
-/* dopo il reveal, posizioniamo SVG in alto */
 .disegno-svg.sticky {
   top: 5%; 
   left: 50%;
@@ -99,15 +122,12 @@ body {
 }
 
 .disegno-svg svg path {
-  fill: white;
-  stroke: white;
+  fill: unset;
+  stroke: unset;
 }
 
-.disegno-svg svg {
-  filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
-}
 
-/* 2) Effetto riflesso */
+
 .disegno-svg::after {
   content: "";
   position: absolute;
@@ -149,10 +169,10 @@ body {
     backdrop-filter: blur(15px);
     border-right: 1px solid var(--line-clr);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1000;
+    z-index: 10;
     overflow-x: visible;
     padding-top: 30px;
-    font-family: 'Evidence';
+    font-family: 'CherrySwash-bold';
 }
 
 #side-menu:hover {
@@ -171,6 +191,8 @@ body {
     padding: 0;
     margin: 0;
     width: 100%;
+    height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -247,13 +269,21 @@ body {
     min-width: 200px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
-    padding: 10px 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: 
+        max-height 0.3s ease-out,
+        opacity 0.2s ease-out,
+        transform 0.3s ease-out;
+    padding: 0;
+
 }
 
 .has-submenu:hover .sub-menu {
     opacity: 1;
     pointer-events: auto;
+    max-height: none;
+    overflow-y: auto;
 }
 
 .sub-menu .menu-icon {
@@ -264,6 +294,7 @@ body {
     padding: 12px 20px;
     font-size: 0.9em;
     color: var(--text-clr);
+    display: block;
 }
 
 .sub-menu a:hover {
@@ -290,6 +321,7 @@ body {
     width: 100%;
     bottom: 0;
     position: sticky;
+    padding: 20px 0;
 }
 
 #side-menu:hover .menu-social {
@@ -336,13 +368,16 @@ body {
 
 @media (max-width: 768px) {
     .disegno-svg {
-      transform: translate(-50%, -50%) scale(0.4) !important;
-      margin-left: 30px;
-      margin-top: 50px;
+      transform: translate(-50%, -50%) scale(0.6) !important;
+      left: calc(50% + 15px); 
+      top: calc(50% + 25px);
+      margin-top: 70px;
     }
 
     #side-menu {
-        position: absolute;
+        position: fixed;
+        overflow: visible;
+        transition: none;
         top: 0;
         left: 0;
         width: 60px;
@@ -351,7 +386,7 @@ body {
         padding-top: 20px;
         border-right: 1px solid var(--line-clr);
         border-top: none;
-        z-index: 1000;
+        z-index: 10;
         justify-content: flex-start;
         transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s;
     }
@@ -368,33 +403,54 @@ body {
         padding: 12px 15px;
     }
 
-    .sub-menu {
-        position: absolute;
-        top: -20px;
-        width: 180px;
-        min-width: 200px;
-        border-radius: 0 8px 8px 0;
-        left: 100%;
-        transform: translateX(0);
-        max-height: 90vh;
-        overflow-y: auto;
-        z-index: 2000;
-        box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-        border-left: none;
-        margin-left: -1px; /* Allinea perfettamente col bordo */
-        transition: opacity 0.3s, transform 0.3s;
-        transform: translateX(1px);
+     .menu-item span,
+      .submenu-arrow {
+        display: none !important;
     }
 
+    .sub-menu {
+        position: absolute;
+        top: 100%;
+        width: calc(100vw - 70px);
+        min-width: 200px;
+        border-radius: 0 8px 8px 0;
+        left: 60px;
+        transform: translateX(0);
+        max-height: 0;
+        max-width: 0;
+        overflow: hidden;
+        z-index: 11;
+        box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        border-left: 1px solid var(--line-clr);
+        margin-left: -1px; /* Allinea perfettamente col bordo */
+        transition: all 0.3s ease;
+        transform: translateX(20px);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .has-submenu {
+        position: relative;
+    }
 
     .has-submenu.active .sub-menu {
-        transform: translateY(0);
-        max-height: none;
+        transform: translateX(0);
+        border-radius: 0.85em;
+        line-height: 1.2;
+        overflow-y: auto;
+        opacity: 1;
+        pointer-events: auto;
+        top: 100%;
+        margin-top: -15px;
+    }
+
+    #side-menu:hover {
+        width: 60px;
     }
 
     #side-menu:hover ~ #hero {
-        margin-left: 240px;
-        width: calc(100vw - 240px);
+        margin-left: 60px;
+        width: calc(100vw - 60px);
     }
 
     #side-menu.submenu-active {
@@ -409,6 +465,11 @@ body {
 
     #side-menu:hover .menu-social {
         flex-direction: column;
+    }
+
+    .menu-social {
+        flex-direction: column;
+        animation: none;
     }
 
 }

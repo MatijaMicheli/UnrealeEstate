@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <title>Unreal Estate Film</title>
@@ -69,7 +69,7 @@
                 <span>Contacts</span>
             </a>
         </li>
-    <li>
+    <li class="menu-social-container">
       <div class="menu-social">
         <a href="#" class="social-link">
             <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -90,8 +90,6 @@
     </li>
     </ul>
 </nav>
-<main>
-</main>
 <div id="particles-js"></div>
   <div class="disegno-svg" id="svg-title2">
   <svg
@@ -132,20 +130,20 @@
      inkscape:groupmode="layer"
      id="svg-title2"
      transform="translate(-7.5725017,-215.27706)">
-    <linearGradient id="sparkle-gradient" 
+    <linearGradient id="sparkle-gradient" preserve="true" 
   x1="0%" 
   y1="0%" 
   x2="100%" 
   y2="0%"
   spreadMethod="repeat">
   <stop offset="0%" stop-color="white" stop-opacity="0">
-  <animate attributeName="offset" values="-0.5;1.5" dur="1.5s" repeatCount="indefinite" />
+  <animate attributeName="offset" values="-0.5;1.5" dur="4s" repeatCount="indefinite" />
 </stop>
 <stop offset="50%" stop-color="white" stop-opacity="1">
-  <animate attributeName="offset" values="0;1" dur="1.5s" repeatCount="indefinite" />
+  <animate attributeName="offset" values="0;1" dur="4s" repeatCount="indefinite" />
 </stop>
 <stop offset="100%" stop-color="white" stop-opacity="0">
-  <animate attributeName="offset" values="0.5;2" dur="1.5s" repeatCount="indefinite" />
+  <animate attributeName="offset" values="0.5;2" dur="4s" repeatCount="indefinite" />
 </stop>
 </linearGradient>
   </defs>
@@ -162,6 +160,16 @@
 
   <video id="main-video" src="mainTrailer.mp4" autoplay muted playsinline loop></video>
 </div>
+
+<main>
+    <section style="background-color: none; padding: 60px 20px; font-family: 'CherrySwash-bold', sans-serif; text-align: center; margin-top: 60px; z-index: 5;">
+        <h2 style="font-size: 2.5rem; color: #ff0055; text-shadow: 0 0 10px #ff0055;">DIVE INTO THE EXPERIENCE</h2>
+        <p style="max-width: 800px; margin: 40px auto 0; font-size: 1.2rem; line-height: 1.6; color: #cccccc; text-shadow: 0 0 5px #ff00ff;">
+            We specialize in high-quality filming and production, with a strong focus on FPV drone cinematography. Whether it's <span style="color: #00ffff;">high-speed chases</span>, <span style="color: #ffcc00;">adrenaline-filled dives</span>, or <span style="color: #ff66cc;">emotional panoramas</span>, FPV drones deliver an <em>ultra-dynamic</em> and <em>immersive</em> perspective that defies expectations. <br><br>
+            Let your audience <span style="color: #00ff99;">feel</span> your space—no clicks, no maps—just raw, cinematic presence.
+        </p>
+    </section>
+</main>
 
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
