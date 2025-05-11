@@ -12,7 +12,7 @@ particlesJS("particles-js", {
       value: 5, random: true,
       anim: { enable: true, speed: 3, size_min: 1, sync: false }
     },
-    move: { enable: true, speed: 2, direction: "top", outMode: "out" }
+    move: { enable: true, speed: 0.5, direction: "top", outMode: "out" }
   },
   interactivity: { detect_on: "canvas", events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
   retina_detect: true
@@ -57,17 +57,39 @@ function initServicesScroll() {
 
 // ------------------- Simple Slideshow -------------------
 function initSlideshow() {
-  const slides = document.querySelectorAll('.illustration-slider .slide');
+  const slider = document.querySelector('.illustration-slider');
+  const slides = slider?.querySelectorAll('.slide') || [];
   if (!slides.length) return;
 
   let current = 0;
-  slides.forEach((s, i) => s.classList.toggle('active', i === 0));
+  let timer = null;
 
-  setInterval(() => {
+  // 1) Mostra la prima immagine
+  slides.forEach((s,i) => s.classList.toggle('active', i === 0));
+
+  // 2) Funzione per passare alla slide successiva
+  function nextSlide() {
     slides[current].classList.remove('active');
     current = (current + 1) % slides.length;
     slides[current].classList.add('active');
-  }, 3000);
+  }
+
+  // 3) Avvio e stop del timer
+  function start() {
+    timer = setInterval(nextSlide, 4000); // 10 secondi
+  }
+  function stop() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  // 4) Eventi per mettere in pausa / riprendere
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', () => { if (!timer) start(); });
+  slider.addEventListener('click', () => { timer ? stop() : start(); });
+
+  // 5) Partiamo!
+  start();
 }
 
 // ------------------- Logo Slideshow -------------------
