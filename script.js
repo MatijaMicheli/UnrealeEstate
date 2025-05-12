@@ -136,3 +136,36 @@ window.addEventListener('DOMContentLoaded', () => {
   // 4) Slideshow
   initSlideshow();
 });
+
+// ------------------- Video Gallery Modal -------------------
+function initVideoGallery() {
+  const items = document.querySelectorAll('.video-item iframe');
+  const modal = document.getElementById('video-modal');
+  const modalFrame = document.getElementById('modal-iframe');
+  const closeBtn = document.getElementById('modal-close');
+
+  items.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const id = thumb.closest('.video-item').dataset.videoId;
+      modalFrame.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+      modal.classList.remove('hidden');
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    modalFrame.src = '';
+  });
+
+  // chiudi cliccando fuori
+  modal.querySelector('.modal-backdrop').addEventListener('click', () => {
+    closeBtn.click();
+  });
+}
+
+// e infine fallo partire
+window.addEventListener('DOMContentLoaded', () => {
+  // ... gli init esistenti ...
+  initLogoSlideshow();
+  initVideoGallery();      // <— qui
+});
