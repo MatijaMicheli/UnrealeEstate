@@ -76,7 +76,7 @@ function initSlideshow() {
 
   // 3) Avvio e stop del timer
   function start() {
-    timer = setInterval(nextSlide, 4000); // 10 secondi
+    timer = setInterval(nextSlide, 4500);
   }
   function stop() {
     clearInterval(timer);
@@ -169,3 +169,25 @@ window.addEventListener('DOMContentLoaded', () => {
   initLogoSlideshow();
   initVideoGallery();      // <— qui
 });
+
+// ------------------- Mobile Side-Menu Toggle -------------------
+function initMenu() {
+  // 1) Prendo il contenitore del menu
+  const sideMenu = document.getElementById('side-menu');
+  if (!sideMenu) return; // se non lo trova, esco
+  
+  // 2) Al tap sulla barra (ma non sui link) alterno la classe .submenu-active
+  sideMenu.addEventListener('click', function(e) {
+    // se il click è su un <a>, non faccio toggle (così il link funziona)
+    if (e.target.closest('a')) return;
+    sideMenu.classList.toggle('submenu-active');
+  });
+  
+  // 3) Se clicco fuori dal menu, lo chiudo togliendo la classe
+  document.addEventListener('click', function(e) {
+    // se l'elemento cliccato NON è dentro #side-menu, chiudo
+    if (!e.target.closest('#side-menu')) {
+      sideMenu.classList.remove('submenu-active');
+    }
+  });
+}

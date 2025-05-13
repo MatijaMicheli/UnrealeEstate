@@ -71,7 +71,6 @@ a:focus {
   opacity: 0;
   transition: opacity 1s ease, transform 1s ease;
   z-index: 3;
-  pointer-events: none;
   animation: pulse-glow 2.5s infinite ease-in-out;
   will-change: transform, opacity;
 }
@@ -121,7 +120,7 @@ a:focus {
 
 @keyframes slide-border {
   from { background-position: 200px 0; }
-  to { background-position: -200% 0; }
+  to { background-position: -200px 0; }
 }
 
 
@@ -176,7 +175,6 @@ a:focus {
   opacity: 1;
 }
 
-/*color variants */
 .btn-primary {
   color: #fff;
   border-color: #5e63ff;
@@ -186,7 +184,6 @@ a:focus {
   border-color: #00ffff;
 }
 
-/* hover "pop" & glow */
 .btn:hover {
   background: rgba(30, 30, 40, 0.8);
   transform: scale(1.05);
@@ -370,6 +367,15 @@ nav {
     background: var(--hover-clr);
 }
 
+ .submenu-arrow {
+    transform: rotate(-90deg);
+    /* ...transition già presente... */
+  }
+  #side-menu.submenu-active .submenu-arrow {
+    transform: rotate(0);
+  }
+
+
 .menu-social {
     position: relative;
     left: 0;
@@ -473,6 +479,67 @@ main section {
   text-shadow: 0 0 5px #ff00ff;
 }
 
+/* === === CTA BUTTONS === === */
+
+.cta-container {
+  max-width: 800px;
+  margin: 30px auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cta-btn {
+  flex: 1;
+  padding: 1.2rem 2rem;
+  font-size: 1.1rem;
+  font-family: 'Audiowide', sans-serif;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta-btn.primary {
+  background: linear-gradient(135deg, #5e63ff, #ff6bcb);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(94,99,255,0.4);
+}
+
+.cta-btn.secondary {
+  background: linear-gradient(135deg, #00ffff, #5e63ff);
+  color: #11121a;
+  box-shadow: 0 4px 15px rgba(0,255,255,0.3);
+}
+
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.4), transparent 60%);
+  transform: scale(0) rotate(45deg);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+.cta-btn:hover {
+  transform: scale(1.05);
+}
+.cta-btn:hover::before {
+  transform: scale(1) rotate(45deg);
+}
+
+.cta-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+
 /* ---------- SERVICES VISUALS ---------- */
 #services-visuals {
   display: flex;
@@ -481,13 +548,14 @@ main section {
   position: relative;
   padding: 1rem 2rem;
   gap: 2rem;
-  margin: 20px auto 20px;
+  margin: 0 auto 20px;
 }
 
 .service-icons.desktop {
   display: flex;
   gap: 3rem;   
   flex: 0 0 50%;
+  cursor: pointer;
 }
 
 .service-icons.desktop img {
@@ -534,7 +602,7 @@ main section {
 }
 
 .icon-glow {
-  filter: invert(1); dropshadow(0 0 6px #00ffff) drop-shadow(0 0 12px #5e63ff);
+  filter: invert(1) drop-shadow(0 0 6px #00ffff) drop-shadow(0 0 12px #5e63ff);
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
@@ -577,6 +645,19 @@ main section {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   background-color: rgba(17, 18, 26, 0.8);
 }
+.illustration-slider:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 15px rgba(94, 99, 255, 0.5);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.illustration-slider .slide p:hover {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  color: var(--accent-clr);
+  transform: translateX(-50%) scale(1.03);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
 .illustration-slider .slide {
   position: absolute;
   top: 0; left: 0;
@@ -589,6 +670,7 @@ main section {
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
+  cursor: pointer;
 }
 .illustration-slider .slide.active {
   opacity: 1;
@@ -619,17 +701,18 @@ main section {
   border-radius: 0.5rem;
   z-index: 2;  
   text-align: center;
+  transition: transform 0.3s ease;
 }
 
 /* === Slideshow LOGO CLIENTS ==== */
 
 .logo-slideshow {
-  width: 100%;
+  position: relative;
+  width: 100vw;
   height: 120px;
   background: rgba(255,255,255,0.96);
   border-top: 2px solid var(--line-clr);
   border-bottom: 2px solid var(--line-clr);
-  position: relative;
   z-index: 2;
   overflow: hidden;
 }
@@ -892,9 +975,14 @@ main section {
 /* ---------- MEDIA QUERIES ---------- */
 @media(min-width: 769px) {
   .disegno-svg {
-    top: 0;
-    transform: translateX(-50%) scale(0.4) !important;
+    cursor: pointer;
+    top: 20px;
   }
+
+  .disegno-svg svg {
+  width: 250px;
+  height: auto;
+}
 
   #main-video {
     max-height: 260px;
@@ -916,10 +1004,9 @@ main section {
   }
 
   .logo-slideshow {
+    transform: translateX(-20px);
     width: 100vw;
-    left: 0;
-    right: 0;
-    margin: 40px auto;
+    margin: 20px;
   }
 
 }
@@ -989,16 +1076,35 @@ main section {
 
   .menu-item span,
   .submenu-arrow {
-    display: none !important;
+     opacity: 0;
+    width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.3s ease, width 0.3s ease;
   }
 
   .has-submenu {
     position: relative;
   }
 
-  #side-menu:hover {
-    width: 60px;
-  }
+  #side-menu.submenu-active {
+    width: 240px !important;
+    overflow-x: visible;
+}
+#side-menu.submenu-active ~ #hero {
+  margin-left: 240px !important;
+  width: calc(100vw - 240px) !important;
+}
+
+#side-menu.submenu-active .menu-item span,
+#side-menu.submenu-active .submenu-arrow {
+    display: block !important;
+    opacity: 1;
+    width: auto;
+}
+#side-menu.submenu-active .menu-item > a {
+    gap: 35px;
+}
 
   #side-menu:hover ~ #hero {
     margin-left: 60px;
@@ -1036,8 +1142,21 @@ main section {
   }
 
   .logo-item {
-    filter: none !important;
+    filter: none;
     opacity: 1;
+  }
+
+  .cta-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1rem;
+  }
+
+  .cta-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1rem;
   }
 
   #services-visuals {
@@ -1093,6 +1212,8 @@ main section {
     padding: 0.5rem;
   }
 
+
+
   #video-gallery { 
     height: auto; 
   }
@@ -1126,4 +1247,17 @@ main section {
     font-size: 1.5rem;
   }
 
+}
+
+@media (hover: none) {
+  .illustration-slider:active {
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(94, 99, 255, 0.4);
+  }
+
+  .illustration-slider .slide p:active {
+    background: rgba(0, 0, 0, 0.6);
+    transform: scale(1.03);
+    color: var(--accent-clr);
+  }
 }
