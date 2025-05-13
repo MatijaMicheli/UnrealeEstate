@@ -238,6 +238,7 @@ nav {
 
 #side-menu ul {
     list-style: none;
+    align-items: center;
     padding: 0;
     margin: 0;
     width: 100%;
@@ -1049,34 +1050,37 @@ main section {
 
   #side-menu {
     position: fixed;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     overflow: hidden;
     top: 0;
     left: 0;
-    width: 50px;
+    width: 45px;
     height: 100vh;
     backdrop-filter: blur(8px);
     padding-top: 15px;
     border-right: 1px solid var(--line-clr);
     border-top: none;
     z-index: 10;
-    justify-content: flex-start;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s;
   }
 
   #side-menu ul {
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
     gap: 20px;
+    margin-right: 15px;
   }
 
   .menu-item > a {
     flex-direction: row;
-    padding: 12px 15px;
+    padding: 10px 15px;
   }
 
   .menu-item span,
   .submenu-arrow {
-     opacity: 0;
+    opacity: 0;
     width: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -1088,7 +1092,7 @@ main section {
   }
 
   #side-menu.submenu-active {
-    width: 240px !important;
+    width: 240px;
     overflow-x: visible;
 }
 #side-menu.submenu-active ~ #hero {
