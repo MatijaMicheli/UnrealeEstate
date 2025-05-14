@@ -1416,4 +1416,12 @@ h1 {
     transform: scale(1.03);
     color: var(--accent-clr);
   }
+
+  #side-menu:not(.submenu-active) .menu-item > a {
+    pointer-events: none;
+  }
+  /* Quando è attivo, li riabilitiamo */
+  #side-menu.submenu-active .menu-item > a {
+    pointer-events: auto;
+  }
 }

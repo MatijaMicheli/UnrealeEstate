@@ -225,6 +225,47 @@ function initFooterAnimation() {
   }
 }
 
+// ------------------- Mobile/Touch & Desktop Side-Menu Toggle -------------------
+function initMenu() {
+  const sideMenu = document.getElementById('side-menu');
+  if (!sideMenu) return;
+
+  // Rileva se è un dispositivo touch
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  if (isTouch) {
+    // Su touch: il primo tap apre/chiude, il secondo segue il link
+    sideMenu.addEventListener('touchstart', function(e) {
+      const link = e.target.closest('a');
+      if (link && sideMenu.classList.contains('submenu-active')) {
+        // menu già aperto: lascia seguire il link
+        return;
+      }
+      // altrimenti previeni il link e toggle del menu
+      e.preventDefault();
+      sideMenu.classList.toggle('submenu-active');
+    });
+
+    // Toccare fuori chiude sempre il menu
+    document.addEventListener('touchstart', function(e) {
+      if (!e.target.closest('#side-menu')) {
+        sideMenu.classList.remove('submenu-active');
+      }
+    });
+  } else {
+    // Su desktop: click sulla barra (fuori <a>) toggle, click esterno chiude
+    sideMenu.addEventListener('click', function(e) {
+      if (e.target.closest('a')) return;
+      sideMenu.classList.toggle('submenu-active');
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#side-menu')) {
+        sideMenu.classList.remove('submenu-active');
+      }
+    });
+  }
+}
+
 // ------------------- DOM Ready -------------------
 window.addEventListener('DOMContentLoaded', () => {
   if (typeof initMenu === 'function') initMenu();
