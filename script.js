@@ -2,19 +2,28 @@
 particlesJS("particles-js", {
   particles: {
     number: { value: 100, density: { enable: true, value_area: 800 } },
-    color: { value: ["#ff6b00","#ff9900","#ffd500"] },
+    color: { value: ["#ff6b00", "#ff9900", "#ffd500"] },
     shape: { type: "circle" },
-    opacity: { 
-      value: 0.6, random: true,
+    opacity: {
+      value: 0.6,
+      random: true,
       anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
     },
-    size: { 
-      value: 5, random: true,
+    size: {
+      value: 5,
+      random: true,
       anim: { enable: true, speed: 3, size_min: 1, sync: false }
     },
     move: { enable: true, speed: 0.5, direction: "top", outMode: "out" }
   },
-  interactivity: { detect_on: "canvas", events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
+  interactivity: {
+    detect_on: "canvas",
+    events: {
+      onhover: { enable: false },
+      onclick: { enable: false },
+      resize: true
+    }
+  },
   retina_detect: true
 });
 
@@ -64,78 +73,70 @@ function initSlideshow() {
   let current = 0;
   let timer = null;
 
-  // 1) Mostra la prima immagine
-  slides.forEach((s,i) => s.classList.toggle('active', i === 0));
+  slides.forEach((s, i) => s.classList.toggle('active', i === 0));
 
-  // 2) Funzione per passare alla slide successiva
   function nextSlide() {
     slides[current].classList.remove('active');
     current = (current + 1) % slides.length;
     slides[current].classList.add('active');
   }
 
-  // 3) Avvio e stop del timer
   function start() {
     timer = setInterval(nextSlide, 4500);
   }
+
   function stop() {
     clearInterval(timer);
     timer = null;
   }
 
-  // 4) Eventi per mettere in pausa / riprendere
   slider.addEventListener('mouseenter', stop);
   slider.addEventListener('mouseleave', () => { if (!timer) start(); });
   slider.addEventListener('click', () => { timer ? stop() : start(); });
 
-  // 5) Partiamo!
   start();
 }
 
-// ------------------- Logo Slideshow -------------------
+// ------------------- Logo Slideshow RANDOM -------------------
 function initLogoSlideshow() {
   const track = document.querySelector('.logos-track');
   if (!track) return;
 
-  // Duplica i loghi per l'effetto infinito
-  const logos = track.innerHTML;
-  track.innerHTML = logos + logos;
+  const items = Array.from(track.querySelectorAll('.logo-item'));
 
-  // Pause on hover
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+
+  track.innerHTML = '';
+  items.forEach(item => track.appendChild(item));
+  items.forEach(item => track.appendChild(item.cloneNode(true)));
+
   track.addEventListener('mouseenter', () => {
     track.style.animationPlayState = 'paused';
   });
-
   track.addEventListener('mouseleave', () => {
     track.style.animationPlayState = 'running';
   });
 }
 
-// Aggiorna l'inizializzazione principale:
-window.addEventListener('DOMContentLoaded', () => {
-  // ... codice esistente ...
-  
-  // 5) Logo Slideshow
-  initLogoSlideshow();
-});
+// ------------------- Mobile Side-Menu Toggle -------------------
+function initMenu() {
+  const sideMenu = document.getElementById('side-menu');
+  if (!sideMenu) return;
 
-// ------------------- Main Initialization -------------------
-window.addEventListener('DOMContentLoaded', () => {
-  // 1) Menu (assume initMenu è definita altrove)
-  if (typeof initMenu === 'function') {
-    initMenu();
-  }
+  sideMenu.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return;
+    sideMenu.classList.toggle('submenu-active');
+  });
 
-  // 2) SVG animations
-  initAnimations();
-  initScrollEffect();
-
-  // 3) Services fade-in scroll
-  initServicesScroll();
-
-  // 4) Slideshow
-  initSlideshow();
-});
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#side-menu')) {
+      sideMenu.classList.remove('submenu-active');
+    }
+  });
+}
 
 // ------------------- Video Gallery Modal -------------------
 function initVideoGallery() {
@@ -157,37 +158,83 @@ function initVideoGallery() {
     modalFrame.src = '';
   });
 
-  // chiudi cliccando fuori
   modal.querySelector('.modal-backdrop').addEventListener('click', () => {
     closeBtn.click();
   });
 }
 
-// e infine fallo partire
-window.addEventListener('DOMContentLoaded', () => {
-  // ... gli init esistenti ...
-  initLogoSlideshow();
-  initVideoGallery();      // <— qui
-});
+// ------------------- Portfolio Video Filters -------------------
+function initVideoFilters() {
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.video-card');
 
-// ------------------- Mobile Side-Menu Toggle -------------------
-function initMenu() {
-  // 1) Prendo il contenitore del menu
-  const sideMenu = document.getElementById('side-menu');
-  if (!sideMenu) return; // se non lo trova, esco
-  
-  // 2) Al tap sulla barra (ma non sui link) alterno la classe .submenu-active
-  sideMenu.addEventListener('click', function(e) {
-    // se il click è su un <a>, non faccio toggle (così il link funziona)
-    if (e.target.closest('a')) return;
-    sideMenu.classList.toggle('submenu-active');
-  });
-  
-  // 3) Se clicco fuori dal menu, lo chiudo togliendo la classe
-  document.addEventListener('click', function(e) {
-    // se l'elemento cliccato NON è dentro #side-menu, chiudo
-    if (!e.target.closest('#side-menu')) {
-      sideMenu.classList.remove('submenu-active');
-    }
+  buttons.forEach(btn => {
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.getAttribute('data-filter');
+      cards.forEach(card => {
+        card.style.display = (filter === 'all' || card.classList.contains(filter)) ? '' : 'none';
+      });
+    });
   });
 }
+
+// ------------------- Floating Labels & Form Validation -------------------
+function initForm() {
+  document.querySelectorAll('.field-wrapper input, .field-wrapper textarea').forEach(field => {
+    field.addEventListener('focus', () => field.parentNode.classList.add('focused'));
+    field.addEventListener('blur', () => {
+      if (!field.value) field.parentNode.classList.remove('focused');
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  const contactSection = document.getElementById('contact');
+  if (contactSection) observer.observe(contactSection);
+
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (form.checkValidity()) {
+        form.querySelector('button').innerText = 'Inviato!';
+      } else {
+        form.querySelectorAll(':invalid').forEach(el => el.classList.add('error'));
+      }
+    });
+  }
+}
+
+// ------------------- Footer Animation -------------------
+function initFooterAnimation() {
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const footerText = document.querySelector(".footer-text");
+  if (footerText) {
+    setTimeout(() => {
+      footerText.classList.add("fade-in");
+    }, 500);
+  }
+}
+
+// ------------------- DOM Ready -------------------
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof initMenu === 'function') initMenu();
+  initAnimations();
+  initScrollEffect();
+  initServicesScroll();
+  initSlideshow();
+  initLogoSlideshow();
+  initVideoGallery();
+  initVideoFilters();
+  initForm();
+  initFooterAnimation();
+});
