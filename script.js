@@ -57,26 +57,37 @@ function initMenu() {
   const sideMenu = document.getElementById('side-menu');
   if (!sideMenu) return;
 
-  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  const toggleMenu = () => sideMenu.classList.toggle('submenu-active');
+  // Toggle menu principale
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    sideMenu.classList.toggle('submenu-active');
+    
+    // Blocca lo scroll quando il menu è aperto
+    document.body.style.overflow = sideMenu.classList.contains('submenu-active') ? 'hidden' : '';
+  };
 
-  if (isTouch) {
-    sideMenu.addEventListener('touchstart', e => {
-      if (!sideMenu.classList.contains('submenu-active')) {
-        e.preventDefault(); toggleMenu();
+  // Chiudi menu quando si clicca fuori
+  const closeMenu = (e) => {
+    if (!e.target.closest('#side-menu')) {
+      sideMenu.classList.remove('submenu-active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  // Gestione eventi per touch e mouse
+  sideMenu.addEventListener('click', toggleMenu);
+  document.addEventListener('click', closeMenu);
+  document.addEventListener('touchstart', closeMenu);
+
+  // Miglioramento per submenu
+  sideMenu.querySelectorAll('.has-submenu').forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        item.classList.toggle('submenu-open');
       }
     });
-    document.addEventListener('touchstart', e => {
-      if (!e.target.closest('#side-menu')) sideMenu.classList.remove('submenu-active');
-    });
-  } else {
-    sideMenu.addEventListener('click', e => {
-      if (!e.target.closest('a')) toggleMenu();
-    });
-    document.addEventListener('click', e => {
-      if (!e.target.closest('#side-menu')) sideMenu.classList.remove('submenu-active');
-    });
-  }
+  });
 }
 
 // ------------------- Simple Slideshow -------------------

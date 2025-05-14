@@ -57,7 +57,7 @@ nav {
     background: rgba(17, 18, 26, 0.98);
     backdrop-filter: blur(15px);
     border-right: 1px solid var(--line-clr);
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s;
+    transition: width 0.3s ease;
     z-index: 10;
     overflow-x: visible;
     padding-top: 30px;
@@ -162,12 +162,13 @@ nav {
 
 /* Sub Menu */
 .sub-menu {
-    position: absolute;
-    left: 100%;
+    position: relative;
+    left: 0;
     top: 0;
     max-height: 0;
     transform-origin: top;
     transform: scaleY(0);
+    overflow: hidden;
     background: var(--base-clr);
     border: 1px solid var(--line-clr);
     border-radius: 8px 0 0 8px;
@@ -1244,6 +1245,8 @@ h1 {
   #side-menu.submenu-active {
     width: 240px;
     overflow-x: visible;
+    z-index: 1000;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
 }
 #side-menu.submenu-active ~ #hero {
   margin-left: 60px;
@@ -1255,9 +1258,10 @@ h1 {
     display: block;
     opacity: 1;
     width: auto;
+    transition-delay: 0.1s;
 }
 #side-menu.submenu-active .menu-item > a {
-    gap: 35px;
+    gap: 15px;
 }
 
   #side-menu:hover ~ #hero {
@@ -1401,6 +1405,10 @@ h1 {
     font-size: 1.5rem;
   }
 
+}
+
+#side-menu * {
+  touch-action: manipulation;
 }
 
 @media (hover: none) {
