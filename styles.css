@@ -1426,7 +1426,6 @@ h1 {
   #side-menu:not(.submenu-active) .menu-item > a {
     pointer-events: none;
   }
-  /* Quando è attivo, li riabilitiamo */
   #side-menu.submenu-active .menu-item > a {
     pointer-events: auto;
   }
