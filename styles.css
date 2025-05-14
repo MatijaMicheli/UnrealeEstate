@@ -643,6 +643,7 @@ main section {
   width: 100%;
   height: 100%;
   position: absolute;
+  z-index: 2;
   overflow: hidden;
   display: block;
   border: 2px solid var(--accent-clr);
@@ -1211,7 +1212,8 @@ h1 {
     border-right: 1px solid var(--line-clr);
     border-top: none;
     z-index: 10;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s;
+    transition: width 0.3s ease;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
   }
 
   #side-menu ul {
@@ -1244,13 +1246,13 @@ h1 {
     overflow-x: visible;
 }
 #side-menu.submenu-active ~ #hero {
-  margin-left: 240px !important;
-  width: calc(100vw - 240px) !important;
+  margin-left: 60px;
+    width: calc(100vw - 60px);
 }
 
 #side-menu.submenu-active .menu-item span,
 #side-menu.submenu-active .submenu-arrow {
-    display: block !important;
+    display: block;
     opacity: 1;
     width: auto;
 }

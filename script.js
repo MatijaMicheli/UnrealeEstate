@@ -4,25 +4,13 @@ particlesJS("particles-js", {
     number: { value: 100, density: { enable: true, value_area: 800 } },
     color: { value: ["#ff6b00", "#ff9900", "#ffd500"] },
     shape: { type: "circle" },
-    opacity: {
-      value: 0.6,
-      random: true,
-      anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
-    },
-    size: {
-      value: 5,
-      random: true,
-      anim: { enable: true, speed: 3, size_min: 1, sync: false }
-    },
+    opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
+    size: { value: 5, random: true, anim: { enable: true, speed: 3, size_min: 1, sync: false } },
     move: { enable: true, speed: 0.5, direction: "top", outMode: "out" }
   },
   interactivity: {
     detect_on: "canvas",
-    events: {
-      onhover: { enable: false },
-      onclick: { enable: false },
-      resize: true
-    }
+    events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
   },
   retina_detect: true
 });
@@ -40,15 +28,15 @@ function initScrollEffect() {
   if (!svgTitle) return;
   let wasInView = false;
 
-  const handler = () => {
+  function handler() {
     const rect = svgTitle.getBoundingClientRect();
-    const nowInView = rect.top <= window.innerHeight && rect.bottom >= 0;
-    if (nowInView && !wasInView) {
+    const inView = rect.top <= window.innerHeight && rect.bottom >= 0;
+    if (inView && !wasInView) {
       svgTitle.classList.add('pulse-twice');
       setTimeout(() => svgTitle.classList.remove('pulse-twice'), 1000);
     }
-    wasInView = nowInView;
-  };
+    wasInView = inView;
+  }
 
   window.addEventListener('scroll', handler);
 }
@@ -64,218 +52,143 @@ function initServicesScroll() {
   });
 }
 
-// ------------------- Simple Slideshow -------------------
-function initSlideshow() {
-  const slider = document.querySelector('.illustration-slider');
-  const slides = slider?.querySelectorAll('.slide') || [];
-  if (!slides.length) return;
-
-  let current = 0;
-  let timer = null;
-
-  slides.forEach((s, i) => s.classList.toggle('active', i === 0));
-
-  function nextSlide() {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-  }
-
-  function start() {
-    timer = setInterval(nextSlide, 4500);
-  }
-
-  function stop() {
-    clearInterval(timer);
-    timer = null;
-  }
-
-  slider.addEventListener('mouseenter', stop);
-  slider.addEventListener('mouseleave', () => { if (!timer) start(); });
-  slider.addEventListener('click', () => { timer ? stop() : start(); });
-
-  start();
-}
-
-// ------------------- Logo Slideshow RANDOM -------------------
-function initLogoSlideshow() {
-  const track = document.querySelector('.logos-track');
-  if (!track) return;
-
-  const items = Array.from(track.querySelectorAll('.logo-item'));
-
-  for (let i = items.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [items[i], items[j]] = [items[j], items[i]];
-  }
-
-  track.innerHTML = '';
-  items.forEach(item => track.appendChild(item));
-  items.forEach(item => track.appendChild(item.cloneNode(true)));
-
-  track.addEventListener('mouseenter', () => {
-    track.style.animationPlayState = 'paused';
-  });
-  track.addEventListener('mouseleave', () => {
-    track.style.animationPlayState = 'running';
-  });
-}
-
 // ------------------- Mobile Side-Menu Toggle -------------------
 function initMenu() {
   const sideMenu = document.getElementById('side-menu');
   if (!sideMenu) return;
 
-  sideMenu.addEventListener('click', function(e) {
-    if (e.target.closest('a')) return;
-    sideMenu.classList.toggle('submenu-active');
-  });
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const toggleMenu = () => sideMenu.classList.toggle('submenu-active');
 
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('#side-menu')) {
-      sideMenu.classList.remove('submenu-active');
-    }
-  });
+  if (isTouch) {
+    sideMenu.addEventListener('touchstart', e => {
+      if (!sideMenu.classList.contains('submenu-active')) {
+        e.preventDefault(); toggleMenu();
+      }
+    });
+    document.addEventListener('touchstart', e => {
+      if (!e.target.closest('#side-menu')) sideMenu.classList.remove('submenu-active');
+    });
+  } else {
+    sideMenu.addEventListener('click', e => {
+      if (!e.target.closest('a')) toggleMenu();
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#side-menu')) sideMenu.classList.remove('submenu-active');
+    });
+  }
 }
+
+// ------------------- Simple Slideshow -------------------
+(function() {
+  function initSlideshow() {
+    const slider = document.querySelector('.illustration-slider');
+    if (!slider) { console.error('[Slideshow] .illustration-slider non trovato'); return; }
+    const slides = Array.from(slider.querySelectorAll('.slide'));
+    if (!slides.length) { console.error('[Slideshow] nessuna slide trovata'); return; }
+
+    let current = 0, timerId = null;
+    slides.forEach((s, i) => s.classList.toggle('active', i === 0));
+
+    function nextSlide() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }
+    function start() { if (timerId === null) timerId = setInterval(nextSlide, 4500); }
+    function stop() { if (timerId !== null) { clearInterval(timerId); timerId = null; } }
+
+    slider.addEventListener('mouseenter', stop);
+    slider.addEventListener('mouseleave', start);
+    slider.addEventListener('click', () => timerId ? stop() : start());
+    start();
+  }
+  document.addEventListener('DOMContentLoaded', initSlideshow);
+})();
+
+// ------------------- Logo Slideshow RANDOM -------------------
+function initLogoSlideshow() {
+  const track = document.querySelector('.logos-track');
+  if (!track) return;
+  const items = Array.from(track.querySelectorAll('.logo-item'));
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  track.innerHTML = '';
+  items.forEach(item => track.appendChild(item));
+  items.forEach(item => track.appendChild(item.cloneNode(true)));
+  track.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
+  track.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
+}
+
+document.addEventListener('DOMContentLoaded', initMenu);
+document.addEventListener('DOMContentLoaded', initAnimations);
+document.addEventListener('DOMContentLoaded', initScrollEffect);
+document.addEventListener('DOMContentLoaded', initServicesScroll);
+document.addEventListener('DOMContentLoaded', initLogoSlideshow);
 
 // ------------------- Video Gallery Modal -------------------
 function initVideoGallery() {
-  const items = document.querySelectorAll('.video-item iframe');
+  const items = document.querySelectorAll('.video-item');
   const modal = document.getElementById('video-modal');
   const modalFrame = document.getElementById('modal-iframe');
   const closeBtn = document.getElementById('modal-close');
+  if (!modal || !modalFrame || !closeBtn) return;
 
-  items.forEach(thumb => {
-    thumb.addEventListener('click', () => {
-      const id = thumb.closest('.video-item').dataset.videoId;
+  items.forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.videoId;
       modalFrame.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
       modal.classList.remove('hidden');
     });
   });
-
-  closeBtn.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    modalFrame.src = '';
-  });
-
-  modal.querySelector('.modal-backdrop').addEventListener('click', () => {
-    closeBtn.click();
-  });
+  closeBtn.addEventListener('click', () => { modal.classList.add('hidden'); modalFrame.src = ''; });
+  modal.querySelector('.modal-backdrop').addEventListener('click', () => closeBtn.click());
 }
+
+document.addEventListener('DOMContentLoaded', initVideoGallery);
 
 // ------------------- Portfolio Video Filters -------------------
 function initVideoFilters() {
-  const buttons = document.querySelectorAll('.filter-btn');
+  const btns = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.video-card');
-
-  buttons.forEach(btn => {
-    btn.style.cursor = 'pointer';
+  btns.forEach(btn => {
     btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
+      btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const filter = btn.getAttribute('data-filter');
-      cards.forEach(card => {
-        card.style.display = (filter === 'all' || card.classList.contains(filter)) ? '' : 'none';
-      });
+      const filter = btn.dataset.filter;
+      cards.forEach(c => c.style.display = filter === 'all' || c.classList.contains(filter) ? '' : 'none');
     });
   });
 }
+document.addEventListener('DOMContentLoaded', initVideoFilters);
 
 // ------------------- Floating Labels & Form Validation -------------------
 function initForm() {
-  document.querySelectorAll('.field-wrapper input, .field-wrapper textarea').forEach(field => {
-    field.addEventListener('focus', () => field.parentNode.classList.add('focused'));
-    field.addEventListener('blur', () => {
-      if (!field.value) field.parentNode.classList.remove('focused');
-    });
+  document.querySelectorAll('.field-wrapper input, .field-wrapper textarea').forEach(f => {
+    f.addEventListener('focus', () => f.parentNode.classList.add('focused'));
+    f.addEventListener('blur', () => { if (!f.value) f.parentNode.classList.remove('focused'); });
   });
-
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
   }, { threshold: 0.2 });
-
-  const contactSection = document.getElementById('contact');
-  if (contactSection) observer.observe(contactSection);
+  const contact = document.getElementById('contact'); if (contact) observer.observe(contact);
 
   const form = document.getElementById('contactForm');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      if (form.checkValidity()) {
-        form.querySelector('button').innerText = 'Inviato!';
-      } else {
-        form.querySelectorAll(':invalid').forEach(el => el.classList.add('error'));
-      }
-    });
-  }
+  if (form) form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (form.checkValidity()) form.querySelector('button').innerText = 'Inviato!';
+    else form.querySelectorAll(':invalid').forEach(el => el.classList.add('error'));
+  });
 }
+document.addEventListener('DOMContentLoaded', initForm);
 
 // ------------------- Footer Animation -------------------
 function initFooterAnimation() {
-  document.getElementById("year").textContent = new Date().getFullYear();
-  const footerText = document.querySelector(".footer-text");
-  if (footerText) {
-    setTimeout(() => {
-      footerText.classList.add("fade-in");
-    }, 500);
-  }
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const footerText = document.querySelector('.footer-text');
+  if (footerText) setTimeout(() => footerText.classList.add('fade-in'), 500);
 }
-
-// ------------------- Mobile/Touch & Desktop Side-Menu Toggle -------------------
-function initMenu() {
-  const sideMenu = document.getElementById('side-menu');
-  if (!sideMenu) return;
-
-  // Rileva se è un dispositivo touch
-  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-  if (isTouch) {
-    // Su touch: il primo tap apre/chiude, il secondo segue il link
-    sideMenu.addEventListener('touchstart', function(e) {
-      const link = e.target.closest('a');
-      if (link && sideMenu.classList.contains('submenu-active')) {
-        // menu già aperto: lascia seguire il link
-        return;
-      }
-      // altrimenti previeni il link e toggle del menu
-      e.preventDefault();
-      sideMenu.classList.toggle('submenu-active');
-    });
-
-    // Toccare fuori chiude sempre il menu
-    document.addEventListener('touchstart', function(e) {
-      if (!e.target.closest('#side-menu')) {
-        sideMenu.classList.remove('submenu-active');
-      }
-    });
-  } else {
-    // Su desktop: click sulla barra (fuori <a>) toggle, click esterno chiude
-    sideMenu.addEventListener('click', function(e) {
-      if (e.target.closest('a')) return;
-      sideMenu.classList.toggle('submenu-active');
-    });
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('#side-menu')) {
-        sideMenu.classList.remove('submenu-active');
-      }
-    });
-  }
-}
-
-// ------------------- DOM Ready -------------------
-window.addEventListener('DOMContentLoaded', () => {
-  if (typeof initMenu === 'function') initMenu();
-  initAnimations();
-  initScrollEffect();
-  initServicesScroll();
-  initSlideshow();
-  initLogoSlideshow();
-  initVideoGallery();
-  initVideoFilters();
-  initForm();
-  initFooterAnimation();
-});
+document.addEventListener('DOMContentLoaded', initFooterAnimation);
