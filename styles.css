@@ -12,6 +12,10 @@
   --menu-w: 60px;
 }
 
+#side-menu * {
+  touch-action: manipulation;
+}
+
 @font-face {
   font-family: 'Audiowide';
   src: url('Audiowide-Regular.ttf') format('truetype');
@@ -1405,10 +1409,6 @@ h1 {
     font-size: 1.5rem;
   }
 
-}
-
-#side-menu * {
-  touch-action: manipulation;
 }
 
 @media (hover: none) {
