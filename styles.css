@@ -1265,6 +1265,22 @@ h1 {
     margin: 0 auto;
   }
 
+  .sub-menu {
+    top: 100%;
+    left: 0;
+    right: auto;
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .has-submenu.submenu-open .sub-menu {
+      transform: scaleY(1);
+      opacity: 1;
+      max-height: 70vh;
+  }
+
   .menu-item > a {
     flex-direction: row;
     padding: 10px 10px;
@@ -1306,10 +1322,6 @@ h1 {
 }
 
 
-  #side-menu.submenu-active {
-    width: 60px;
-    overflow: visible;
-  }
 
   #side-menu.submenu-active ~ #hero {
     margin-left: 60px;
