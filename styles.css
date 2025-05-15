@@ -145,9 +145,10 @@ nav {
 
 /* Sub Menu */
 .sub-menu {
-  position: absolute;
+  position: relative;
   top: 0;
-  left: 100%;
+  left: 0;
+  width: 100%;
   background: var(--base-clr);
   border: 1px solid var(--line-clr);
   border-radius: 8px 0 0 8px;
@@ -1266,17 +1267,19 @@ h1 {
   }
 
   .sub-menu {
-    position: relative;
-    top: 0;
+    position: absolute;
+    top: 100%;
     left: 0;
+    right: 0;
     width: 100%;
     border: none;
-    border-radius: 0;
-    transform: none;
-    opacity: 1;
-    background: var(--hover-clr);
-    transition: none;
-    overflow: hidden;
+    border-radius: 0 0 8px 8px;
+    background: var(--base-clr);
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    z-index: 1000;        
+    transition: transform 0.3s ease, opacity 0.2s ease, max-height 0.3s ease;
     max-height: 0;
   }
 
@@ -1286,9 +1289,9 @@ h1 {
   }
 
   .has-submenu.submenu-open .sub-menu {
-    max-height: 500px;
-    margin-top: 10px;
-    border-top: 1px solid var(--line-clr);
+    transform: scaleY(1);
+    opacity: 1;
+    max-height: 80vh;
   }
 
   .has-submenu.submenu-open {
