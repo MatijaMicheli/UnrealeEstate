@@ -1,3 +1,7 @@
+// @section: Initialization
+console.log("Start");
+// @endsection
+
 // ------------------- particles.js initialization -------------------
 particlesJS("particles-js", {
   particles: {
@@ -52,43 +56,49 @@ function initServicesScroll() {
   });
 }
 
-// ------------------- Mobile Side-Menu Toggle -------------------
-function initMenu() {
+// ------------------- Side-Menu Mobile & Dropdown -------------------
+document.addEventListener('DOMContentLoaded', () => {
   const sideMenu = document.getElementById('side-menu');
-  if (!sideMenu) return;
+  const submenuToggles = sideMenu.querySelectorAll('.submenu-toggle');
+  const submenuItems = sideMenu.querySelectorAll('.has-submenu');
 
-  // Toggle menu principale
-  const toggleMenu = (e) => {
-    e.stopPropagation();
-    sideMenu.classList.toggle('submenu-active');
-    
-    // Blocca lo scroll quando il menu è aperto
-    document.body.style.overflow = sideMenu.classList.contains('submenu-active') ? 'hidden' : '';
-  };
+  if (!sideMenu || submenuToggles.length === 0) return;
 
-  // Chiudi menu quando si clicca fuori
-  const closeMenu = (e) => {
-    if (!e.target.closest('#side-menu')) {
+  // 1) Toggle principale hamburger (solo su mobile)
+  sideMenu.querySelector('.menu-item:first-child > a').addEventListener('click', e => {
+    if (window.innerWidth < 768) {
+      e.preventDefault();
+      e.stopPropagation();
+      sideMenu.classList.toggle('submenu-active');
+      document.body.style.overflow = sideMenu.classList.contains('submenu-active') ? 'hidden' : '';
+    }
+  });
+
+  // 2) Toggle sottomenù Services
+  submenuToggles.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const parent = btn.closest('.has-submenu');
+      parent.classList.toggle('submenu-open');
+    });
+  });
+
+  // 3) Chiudi tutto se clicchi fuori (sia menu che dropdown)
+  document.addEventListener('click', e => {
+    // chiudi dropdown
+    submenuItems.forEach(item => {
+      if (!e.target.closest('.has-submenu')) {
+        item.classList.remove('submenu-open');
+      }
+    });
+    // chiudi menu mobile
+    if (!e.target.closest('#side-menu') && sideMenu.classList.contains('submenu-active')) {
       sideMenu.classList.remove('submenu-active');
       document.body.style.overflow = '';
     }
-  };
-
-  // Gestione eventi per touch e mouse
-  sideMenu.addEventListener('click', toggleMenu);
-  document.addEventListener('click', closeMenu);
-  document.addEventListener('touchstart', closeMenu);
-
-  // Miglioramento per submenu
-  sideMenu.querySelectorAll('.has-submenu').forEach(item => {
-    item.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        item.classList.toggle('submenu-open');
-      }
-    });
   });
-}
+});
 
 // ------------------- Simple Slideshow -------------------
 (function() {
