@@ -1281,6 +1281,7 @@ h1 {
     z-index: 1000;        
     transition: transform 0.3s ease, opacity 0.2s ease, max-height 0.3s ease;
     max-height: 0;
+    pointer-events: auto;
   }
 
    .sub-menu a {
@@ -1292,6 +1293,7 @@ h1 {
     transform: scaleY(1);
     opacity: 1;
     max-height: 80vh;
+    pointer-events: auto;
   }
 
   .has-submenu.submenu-open {
