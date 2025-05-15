@@ -1266,19 +1266,33 @@ h1 {
   }
 
   .sub-menu {
-    top: 100%;
+    position: relative;
+    top: 0;
     left: 0;
-    right: auto;
     width: 100%;
-    border-radius: 0 0 8px 8px;
-    max-height: 70vh;
-    overflow-y: auto;
+    border: none;
+    border-radius: 0;
+    transform: none;
+    opacity: 1;
+    background: var(--hover-clr);
+    transition: none;
+    overflow: hidden;
+    max-height: 0;
+  }
+
+   .sub-menu a {
+    padding-left: 45px;
+    font-size: 0.9em;
   }
 
   .has-submenu.submenu-open .sub-menu {
-      transform: scaleY(1);
-      opacity: 1;
-      max-height: 70vh;
+    max-height: 500px;
+    margin-top: 10px;
+    border-top: 1px solid var(--line-clr);
+  }
+
+  .has-submenu.submenu-open {
+    position: static;
   }
 
   .menu-item > a {
@@ -1478,4 +1492,5 @@ h1 {
   #side-menu.submenu-active .menu-item > a {
     pointer-events: auto;
   }
+  
 }
