@@ -222,21 +222,60 @@ function initForm() {
   if (contact) observer.observe(contact);
 
   const form = document.getElementById('contactForm');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      if (form.checkValidity()) form.querySelector('button').innerText = 'Inviato!';
-      else form.querySelectorAll(':invalid').forEach(el => el.classList.add('error'));
-    });
-  }
+if (form) {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const feedback = form.querySelector('.form-feedback');
+    if (!form.checkValidity()) {
+      form.querySelectorAll(':invalid').forEach(el => el.classList.add('error'));
+      feedback.textContent = 'Per favore compila tutti i campi richiesti.';
+      return;
+    }
+    feedback.textContent = 'Inviando...';
+    const data = new FormData(form);
+    try {
+      const resp = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        feedback.textContent = 'Grazie! Il messaggio è stato inviato.';
+        form.reset();
+      } else {
+        feedback.textContent = 'Errore durante l’invio, riprova più tardi.';
+      }
+    } catch (err) {
+      console.error(err);
+      feedback.textContent = 'Connessione fallita.';
+    }
+  });
+}
 }
 
-// ------------------- Footer Animation -------------------
-function initFooterAnimation() {
-  const yearEl    = document.getElementById('year');
-  const footerText = document.querySelector('.footer-text');
-  if (yearEl)    yearEl.textContent = new Date().getFullYear();
-  if (footerText) setTimeout(() => footerText.classList.add('fade-in'), 500);
+
+// ------------------- Real Estate Promo Initialization -------------------
+function initRealEstatePromo() {
+  const promoEls = document.querySelectorAll('#real-estate-promo .promo-content > div');
+  if (!promoEls.length) return;
+
+  // 1) IntersectionObserver per fade-in delle colonne
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  promoEls.forEach(el => observer.observe(el));
+
+  // 2) Hover sulle icone dei benefit
+  document.querySelectorAll('.promo-benefits .benefit-icon').forEach(icon => {
+    icon.addEventListener('mouseenter', () => icon.classList.add('icon-glow'));
+    icon.addEventListener('mouseleave', () => icon.classList.remove('icon-glow'));
+  });
 }
 
 // ------------------- Avvio di tutti gli init al DOMContentLoaded -------------------
@@ -250,4 +289,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initVideoFilters();
   initForm();
   initFooterAnimation();
+  initRealEstatePromo();
 });
