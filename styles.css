@@ -1135,6 +1135,8 @@ h1 {
 
 /* === Real Estate Promo Section === */
 #real-estate-promo {
+  position: relative;
+  z-index: 2;
   width: calc(100% - var(--menu-w));
   margin: 1rem auto;
   padding: 1rem var(--gutter, 2rem);
@@ -1185,10 +1187,9 @@ h1 {
 .promo-text {
   flex: 1;
   text-align: right;
-  opacity: 0;
+  opacity: 1;
   max-height: 100%;
   padding-right: 0.5rem;
-  overflow-y: auto;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
@@ -1220,14 +1221,9 @@ h1 {
   top: 0;
 }
 
-/* Stato “entrato in vista” */
-#real-estate-promo .visible {
+#real-estate-promo .promo-text.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-#real-estate-promo .promo-text {
-  width: 100%;
 }
 
 /* Row dei benefit sotto promo-content */
@@ -1288,6 +1284,10 @@ h1 {
   filter: invert(1) drop-shadow(0 0 6px var(--accent-clr)) drop-shadow(0 0 12px var(--accent-clr));
 }
 
+ #real-estate-promo .promo-text {
+  width: 100%;
+
+ }
 
 /* ---------- MEDIA QUERIES ---------- */
 
