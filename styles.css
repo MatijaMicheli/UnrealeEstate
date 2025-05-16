@@ -191,6 +191,7 @@ nav {
 .submenu-toggle {
   display: flex;
   align-items: center;
+  pointer-events: auto;
   gap: 15px;
   cursor: pointer;
 }
@@ -1307,6 +1308,7 @@ h1 {
 
   .menu-item span
   .submenu-arrow {
+    display: block;
     opacity: 0;
     width: 0;
     white-space: nowrap;
@@ -1316,6 +1318,10 @@ h1 {
 
   .has-submenu {
     position: relative;
+  }
+
+  .has-submenu .sub-menu {
+    pointer-events: none;
   }
 
   #side-menu.submenu-active {

@@ -74,29 +74,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2) Toggle sottomenù Services
+  // 2) Toggle sottomenù Services (click + touchstart)
   submenuToggles.forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      const parent = btn.closest('.has-submenu');
-      parent.classList.toggle('submenu-open');
+    ['click', 'touchstart'].forEach(evtType => {
+      btn.addEventListener(evtType, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const parent = btn.closest('.has-submenu');
+        parent.classList.toggle('submenu-open');
+      });
     });
   });
 
-  // 3) Chiudi tutto se clicchi fuori (sia menu che dropdown)
-  document.addEventListener('click', e => {
-    // chiudi dropdown
-    submenuItems.forEach(item => {
-      if (!e.target.closest('.has-submenu')) {
-        item.classList.remove('submenu-open');
+  // 3) Chiudi tutto se clicchi o tocchi fuori (sia menu che dropdown)
+  ['click', 'touchstart'].forEach(evtType => {
+    document.addEventListener(evtType, e => {
+      // chiudi dropdown
+      submenuItems.forEach(item => {
+        if (!e.target.closest('.has-submenu')) {
+          item.classList.remove('submenu-open');
+        }
+      });
+      // chiudi menu mobile
+      if (
+        !e.target.closest('#side-menu') &&
+        sideMenu.classList.contains('submenu-active')
+      ) {
+        sideMenu.classList.remove('submenu-active');
+        document.body.style.overflow = '';
       }
     });
-    // chiudi menu mobile
-    if (!e.target.closest('#side-menu') && sideMenu.classList.contains('submenu-active')) {
-      sideMenu.classList.remove('submenu-active');
-      document.body.style.overflow = '';
-    }
   });
 });
 
