@@ -1685,6 +1685,7 @@ h1 {
    .promo-text-center {
     margin-left: 40px;
     width: calc(100% - var(--menu-w));
+    padding: 0 20px;
   }
 
 @media (hover: none) {
