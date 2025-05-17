@@ -482,7 +482,8 @@ a:focus {
 }
 
 @keyframes rotate360 {
-  to { transform: rotate(1turn); }
+  0%   { transform: skewX(-20deg) translateX(0); }
+  100% { transform: skewX(-20deg) translateX(300%); }
 }
 
 /* === MAIN SECTION ==== */
@@ -1129,8 +1130,9 @@ h1 {
 .terms-policy {
   display: flex;
   justify-content: center;
-  align-items: center;
+  text-align: center;
   margin: 10px;
+  margin-left: var(--menu-w);
 }
 
 /* === Real Estate Promo Section === */
@@ -1162,7 +1164,37 @@ h1 {
   transform: translateY(0);
 }
 
-/* Colonna sinistra: immagini empilate */
+/* Img buttons */
+
+.promo-img-wrapper {
+  position: relative;
+  overflow: visible;
+  display: inline-block;
+}
+
+.promo-img-wrapper:hover .promo-img {
+  filter: brightness(50%);
+  transition: filter 0.3s ease;
+}
+
+.watch-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.promo-img-wrapper:hover .watch-btn {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* img buttons end */
+
 .promo-images {
   display: flex;
   flex-direction: column;
@@ -1170,7 +1202,7 @@ h1 {
   flex: 1;
 }
 .promo-images .promo-img {
-  width: 100%;
+  width: 600px;
   transform: translateY(20px);
   object-fit: cover;
   opacity: 1;
@@ -1189,7 +1221,6 @@ h1 {
   text-align: right;
   opacity: 1;
   max-height: 100%;
-  padding-right: 0.5rem;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
@@ -1226,7 +1257,6 @@ h1 {
   transform: translateY(0);
 }
 
-/* Row dei benefit sotto promo-content */
 .promo-benefits {
   display: flex;
   flex-direction: column;
@@ -1289,6 +1319,16 @@ h1 {
 
  }
 
+ .promo-text-center {
+  z-index: 10;
+  text-align: center;
+  max-height: 100%;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  color: white;
+  margin: 10px auto;
+}
+
 /* ---------- MEDIA QUERIES ---------- */
 
 
@@ -1341,6 +1381,7 @@ h1 {
    .promo-benefits {
     flex-direction: row;
     justify-content: space-between;
+    padding: 0 40px;
   }
 
 }
@@ -1634,7 +1675,17 @@ h1 {
     margin-left: 20px;
   }
 
-}
+  .promo-benefits {
+    flex-direction: column;
+    margin: auto 60px;
+    justify-content: center;
+    padding: 0;
+  }
+
+   .promo-text-center {
+    margin-left: 40px;
+    width: calc(100% - var(--menu-w));
+  }
 
 @media (hover: none) {
   .illustration-slider:active {

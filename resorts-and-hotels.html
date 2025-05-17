@@ -41,7 +41,7 @@
                      </svg>
                 </a>
                 <div class="sub-menu">
-                  <a href="#"><img src="icons/realEstate.svg" alt="Real Estate"/><span>Real Estate</span></a>
+                  <a href="real-estate.html"><img src="icons/realEstate.svg" alt="Real Estate"/><span>Real Estate</span></a>
                   <a href="#"><img src="icons/resort.svg" alt="Resort"/><span>Resort</span></a>
                   <a href="#"><img src="icons/nature.svg" alt="Nature"/><span>Nature</span></a>
                   <a href="#"><img src="icons/company.svg" alt="Companies"/><span>Companies</span></a>
@@ -342,42 +342,49 @@
       <a href="portfolio.html" class="btn btn-secondary">Watch Examples..</a>
    </div>
 </div>
-<header>
-    <h1>FPV Real - Estate</h1>
-</header>
 
-<section id="real-estate-promo">
-  <div class="promo-content">
-    <!-- COLONNA SINISTRA: DUE IMMAGINI -->
-    <div class="promo-images">
-      <div class="promo-img-wrapper">
-         <img src="images/restate1.png" alt="bedroom view" class="promo-img">
-            <button class="btn btn-primary watch-btn">Watch the video</button>
-      </div>
-      <div class="promo-img-wrapper">
-         <img src="images/restate2.png" alt="house view" class="promo-img">
-            <button class="btn btn-secondary watch-btn">Watch the video</button>
-      </div>
+<div class="promo-text-center">
+  <h2>Fly through your hotel or resort with an immersive FPV drone tour.</h2>
+  <p><strong>Showcase your hotel like never before.</strong></p>
+  <p>We create cinematic FPV tours that glide through rooms, spas, event halls, corporate spaces, and wedding venues — all in one smooth, continuous shot.</p>
+  <p><strong>Tell the story of your space in just one click.</strong></p>
+  <p>Let your guests feel the vibe before they even arrive.</p>
+</div>
+
+<!-- VIDEO GRID -->
+<section class="video-grid">
+  <div class="video-card resort">
+      <iframe src="https://www.youtube.com/embed/xhOkpcmohmI?rel=0&modestbranding=1&showinfo=0" loading="lazy" allowfullscreen></iframe>
+      <p>Zen Resort Pt.1 Main Premises & Accomodations</p>
     </div>
-    <!-- COLONNA DESTRA: TESTO ALLUNGATO -->
-    <div class="promo-text">
-      <h2>Thinking of selling your property?</h2>
-      <p>Make it stand out with a modern, immersive experience.</p>
-      <p>With cinematic FPV drone footage, you can showcase the entire flow of a property — from the front door to the rooftop — in one seamless flight. Perfect for highlighting unique architecture, stylish interiors, and multi-story layouts.</p>
-      <p>Got a stunning entrance or a dramatic open space? Let it shine with dynamic FPV fly-throughs that grab attention and create an emotional connection.</p>
-      <p>Whether it’s for real estate, tourism, or showcasing luxury spaces — I bring smooth, cinematic shots that elevate your story and engage your audience.</p>
-      <p>Boost your marketing with:</p>
-      <ul>
-        <li>▶️ Immersive walkthroughs that hold viewers’ attention</li>
-        <li>▶️ Faster turnaround times compared to traditional video crews</li>
-        <li>▶️ Versatile angles—perfect for social media teasers</li>
-        <li>▶️ SEO-friendly video content to rank higher on property portals</li>
-        <li>▶️ Cost-effective packages tailored to every budget</li>
-      </ul>
-      <p>Let visuals do the talking. Let’s fly.</p>
+    <div class="video-card resort">
+      <iframe src="https://www.youtube.com/embed/Kt9rWsQF3h0?rel=0&modestbranding=1&showinfo=0" loading="lazy" allowfullscreen></iframe>
+      <p>Zen Resort Pt.2 Meditation & Wellness</p>
     </div>
-  </div>
+    <div class="video-card resort">
+      <iframe src="https://www.youtube.com/embed/4yX_lmhE8U8?rel=0&modestbranding=1&showinfo=0" loading="lazy" allowfullscreen></iframe>
+      <p>Zen Resort Pt.3 SPA and Healing Process</p>
+    </div>
+    <div class="video-card resort">
+      <iframe src="https://www.youtube.com/embed/BmJxmjWNKJk?rel=0&modestbranding=1&showinfo=0" loading="lazy" allowfullscreen></iframe>
+      <p>The Garcia - Ubud</p>
+    </div>
 </section>
+
+<!-- PROMO TEXT - BENEFITS -->
+<div class="promo-text-center">
+  <h2>Why choose an FPV drone tour?</h2>
+  <ul>
+    <li>▶️ <strong>Instant impact:</strong> Grab attention within seconds with dynamic first-person footage.</li>
+    <li>▶️ <strong>Unique perspective:</strong> Capture angles traditional 3D tours simply can’t.</li>
+    <li>▶️ <strong>Boost bookings:</strong> A high-quality video sells the experience better than static photos ever could.</li>
+    <li>▶️ <strong>Immersive experience:</strong> Make visitors feel like they’re already walking through your property.</li>
+    <li>▶️ <strong>Perfect for social media:</strong> Ready-to-post content for Instagram, TikTok, YouTube & more.</li>
+    <li>▶️ <strong>Total flexibility:</strong> Fly through indoor and outdoor spaces with smooth transitions.</li>
+    <li>▶️ <strong>Modern appeal:</strong> Elevate your brand image with a cutting-edge presentation.</li>
+  </ul>
+</div>
+
 <section>
   <!-- SEZIONE INFERIORE: TRE BENEFIT IN FLEX ROW -->
   <div class="promo-benefits">
@@ -396,19 +403,22 @@
   </div>
 </section>
 
-  <footer id="contact">
-   <div class="footer-content">
-      <h3>Ready to get up and fly?<br>Message me</h3>
-      <form class="contact-form">
-         <div class="form-grid">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="text" name="surname" placeholder="Surname" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="tel" name="phone" placeholder="Phone (optional)">
-            <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
-         </div>
-         <button type="submit" class="btn btn-primary">Launch Project</button>
-      </form>
+<footer id="contact">
+  <div class="footer-content">
+    <h3>Ready to get up and fly?<br>Message me</h3>
+    <form id="contactForm" class="contact-form"
+          action="https://formspree.io/f/mbloqzdy"
+          method="POST">
+      <div class="form-grid">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="surname" placeholder="Surname" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone (optional)">
+        <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Launch Project</button>
+      <div class="form-feedback" aria-live="polite"></div>
+    </form>
    </div>
    <div class="terms-policy">
       <a href="https://www.termsfeed.com/live/1231983b-cab9-4da2-8773-f2902e6b34f3">Terms & conditions | Privacy Policy</a>
