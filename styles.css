@@ -1445,7 +1445,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    margin: 0 auto;
+    margin-right: 12px;
   }
 
   .sub-menu {
@@ -1541,6 +1541,7 @@ h1 {
 
   .menu-icon {
     min-width: 24px;
+    padding-right: 5px;
 }
 
   .menu-social {
@@ -1632,6 +1633,7 @@ h1 {
   .video-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    margin-left: 40px;
   }
 
   .videos-grid {
