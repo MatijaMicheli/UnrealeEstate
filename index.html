@@ -22,7 +22,6 @@
    <meta name="twitter:player:width" content="560" />
    <meta name="twitter:player:height" content="315" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preload" href="/fonts/Audiowide-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <title>Unreal Estate Film</title>
   <link rel="stylesheet" href="styles.css" />
@@ -31,27 +30,14 @@
 <div id="particles-js"></div>   
 <nav id="side-menu">
         <ul>
-            <li class="menu-item has-submenu">
-                <a href="#" class="submenu-toggle">
-                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <li class="menu-item">
+                <a href="#">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                         <path d="M800-80H560q-17 0-28.5-11.5T520-120v-240q0-17 11.5-28.5T560-400h240q17 0 28.5 11.5T840-360v80l80-80v240l-80-80v80q0 17-11.5 28.5T800-80ZM480-480Zm2-140q-58 0-99 41t-41 99q0 48 27 84t71 50v-90q-8-8-13-20.5t-5-23.5q0-25 17.5-42.5T482-540q25 0 42 17.5t17 42.5h81q0-58-41-99t-99-41ZM370-80l-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v13.5h-80q-1-19-3-33.5t-6-27.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q24 25 54 42t65 22v184h-70Z"/>
                     </svg>
                     <span>Services</span>
-                     <svg class="submenu-arrow" viewBox="0 0 24 24">
-                     <path d="M8 5l8 7-8 7" />
-                     </svg>
                 </a>
-                <div class="sub-menu">
-                  <a href="real-estate.html"><img src="icons/realEstate.svg" alt="Real Estate"/><span>Real Estate</span></a>
-                  <a href="resorts-and-hotels.html"><img src="icons/resort.svg" alt="Resort"/><span>Resorts & Hotels</span></a>
-                  <a href="#"><img src="icons/nature.svg" alt="Nature"/><span>Nature</span></a>
-                  <a href="#"><img src="icons/company.svg" alt="Companies"/><span>Companies</span></a>
-                  <a href="#"><img src="icons/restaurant.svg" alt="Restaurants"/><span>Restaurants</span></a>
-                  <a href="#"><img src="icons/city-skyline.svg" alt="Skyline"/><span>Sky-Line</span></a>
-                  <a href="#"><img src="icons/events.svg" alt="Events"/><span>Events</span></a>
-                  <a href="#"><img src="icons/gym.svg" alt="Gym"/><span>Gym</span></a>
-                </div>
-            </li>
+                    </li>
             <li class="menu-item">
                 <a href="portfolio.html">
                     <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
@@ -62,71 +48,8 @@
             </li>
             <li class="menu-item">
                 <a href="#">
-                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><defs
-     id="defs1" /><g
-     id="layer6"
-     transform="matrix(1.4500333,0,0,1.4500333,-38.989399,103.84295)"><ellipse
-       style="fill:none;stroke:#050506;stroke-width:48.9983;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.96835601"
-       id="path23"
-       cx="234.74274"
-       cy="-522.17603"
-       rx="184.66937"
-       ry="129.41035" /><ellipse
-       style="fill:none;stroke:#050506;stroke-width:44.7453;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.96835601"
-       id="path24"
-       cx="477.39981"
-       cy="-314.4231"
-       rx="183.4566"
-       ry="146.24908" /></g><path
-     style="display:inline;fill:#666600;stroke:#c80000;stroke-width:0;stroke-linejoin:bevel;stroke-opacity:1;fill-opacity:1"
-     d="m 204.23077,-535.3846 30,-28.26924 c 0,0 2.30768,-11.53847 -10.96154,-11.53847 -13.26923,0 -16.73077,0.57693 -15.57692,-6.34615 1.15385,-6.92308 -23.07693,-3.46154 -23.07693,-3.46154 0,0 -5.76922,-4.61538 -0.57692,-10.96154 5.19231,-6.34615 8.07692,-14.42308 8.07692,-14.42308 l 6.34616,-4.03846 c 0,0 9.80769,4.61539 13.26923,4.61539 3.46152,0 19.61539,-1.15384 25.38461,1.73076 5.76924,2.8846 8.65385,5.76923 25.38462,8.65384 12.84374,2.21443 78.3863,2.38891 108.1478,2.35046 8.13895,-0.0105 20.66612,-2.94512 28.13497,-6.17799 13.32773,-5.76887 33.2937,-13.44315 44.02656,-12.86662 27.41667,1.47273 43.5729,10.57116 52.3949,31.75863 3.5899,8.62174 4.45966,23.8614 1.21978,32.51725 -2.61762,6.99339 -4.75842,22.34863 -5.13657,33.93101 -1.2762,39.08946 2.74652,90.58413 3.71248,94.44879 1.154,4.61536 19.6154,19.03844 19.03848,22.5 -0.5768,3.4616 0.5768,16.73076 0.5768,20.7692 0,4.03848 3.4616,14.42308 0.5768,15.57692 -2.8848,1.154 -9.80772,6.34616 -18.46156,7.5 -8.65384,1.154 -30.57692,4.6154 -31.73076,-0.5768 -1.154,-5.19228 -7.5,-19.03844 -8.07692,-22.5 -0.5768,-3.4616 -9.80768,-8.65384 -10.3846,-13.2692 -0.5768,-4.6154 0.5768,-11.53848 -6.92308,-12.69232 -7.5,-1.154 -55.38463,15 -55.38463,15 L 320.76923,-367.5 c 0,0 -11.53846,15.57692 -19.61538,17.8846 -8.07693,2.3076 -26.53847,2.3076 -28.26923,-1.7308 -1.73076,-4.03844 -4.61539,-21.34616 -4.61539,-26.53844 0,-5.19232 -2.30768,-10.38464 -0.57692,-13.84616 1.73076,-3.4616 8.07692,-20.7692 12.69231,-21.92304 4.61538,-1.15384 4.03846,-103.26924 4.03846,-103.26924 z"
-     id="path4"
-     transform="matrix(1.4500332,0,0,1.4500332,-38.989399,103.84296)" /><path
-     style="fill:#4d4d4d;stroke:#f6daf5;stroke-width:0;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:0, 0;stroke-dashoffset:0;stroke-opacity:0.95744681;fill-opacity:1"
-     d="m 638.91044,-364.21042 c 0,0 -18.92915,53.23821 -15.37993,68.61812 3.5491,15.37993 9.4646,37.85829 17.7461,46.13978 8.28148,8.28149 34.30906,37.85828 35.49211,56.78742 1.18322,18.92915 11.83071,11.8307 11.83071,11.8307 l 28.39373,-13.01375 c 0,0 13.01376,-30.75984 8.28149,-92.27961 -4.73233,-61.51968 -39.04133,-82.81494 -39.04133,-82.81494 z"
-     id="path15" /><path
-     style="fill:#4d4d4d;stroke:#f6daf5;stroke-width:0;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:0, 0;stroke-dashoffset:0;stroke-opacity:0.95744681;fill-opacity:1"
-     d="m 317.11506,-766.45465 c 8.28149,-7.09844 22.47836,-27.21065 22.47836,-27.21065 0,0 15.37992,-4.73227 17.74607,3.5492 2.36617,8.28151 3.54922,20.11223 0,28.39373 -3.54923,8.28149 -40.22443,-4.73227 -40.22443,-4.73228 z"
-     id="path16" /><g
-     id="layer5"
-     transform="matrix(1.4500333,0,0,1.4500333,-38.989399,103.84295)"><ellipse
-       style="fill:#1a1a1a;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:0, 0;stroke-dashoffset:0"
-       id="path13"
-       cx="210.57692"
-       cy="-556.73077"
-       rx="32.884613"
-       ry="22.5" /><ellipse
-       style="fill:#1a1a1a;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:0, 0;stroke-dashoffset:0"
-       id="path11"
-       cx="479.42307"
-       cy="-359.42307"
-       rx="49.038464"
-       ry="40.961536" /></g><g
-     id="layer3"
-     style="display:inline"
-     transform="matrix(1.4500333,0,0,1.4500333,-38.989399,103.84295)"><path
-       style="fill:#999999;stroke:#000000;stroke-width:0;stroke-linejoin:bevel"
-       d="m 257.30769,-558.46152 14.42308,-12.69232 c 0,0 9.80769,-3.46152 16.73077,0.57692 6.92308,4.03846 9.23077,12.1154 9.23077,12.1154 0,0 5.19231,4.03844 3.46156,6.34612 -1.73076,2.3076 -10.38462,6.92308 -10.38462,6.92308 z"
-       id="path6" /><path
-       style="fill:#999999;stroke:#000000;stroke-width:0;stroke-linejoin:bevel"
-       d="m 318.46154,-567.11538 9.11859,15.33579 c 1.97371,3.31942 6.07925,7.90696 9.42501,9.83071 1.61593,0.92913 3.52447,1.93895 5.67178,2.92176 4.34567,1.98896 11.82247,4.39852 16.58815,4.63567 6.20772,0.3089 10.11467,-1.64465 13.42724,-3.30087 3.66239,-1.83119 8.05133,-5.11548 8.5546,-10.71765 0.24128,-2.68582 -2.33712,-6.03003 -4.63085,-7.47423 l -9.07499,-5.71387 a 95.142652,95.142652 33.866696 0 1 -4.60732,-3.09211 l -1.54904,-1.10646 c -2.35788,-1.6842 -6.58309,-3.4553 -9.44385,-3.91584 -2.99333,-0.48189 -6.8422,-1.06887 -10.30708,-1.49678 -4.48848,-0.55433 -11.77538,0.23367 -16.0788,1.63715 -3.70385,1.20793 -7.09344,2.45673 -7.09344,2.45673 z"
-       id="path7" /><path
-       style="fill:#f9f9f9;stroke:#000000;stroke-width:0;stroke-linejoin:bevel"
-       d="m 349.03846,-405.57692 c 8.07692,-2.8844 70.38462,-41.53848 70.38462,-41.53848 0,0 21.34616,0.5768 30.57692,4.03848 9.23076,3.4616 6.92308,6.92308 0,8.65384 -6.92308,1.7308 -91.73077,32.30768 -91.73077,32.30768 0,0 -6.92307,1.7308 -9.23077,-3.4616 z"
-       id="path8" /></g><path
-     style="fill:#0a0e10;stroke:#070608;stroke-width:4;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;fill-opacity:1"
-     d="m 285.595,-680.84818 50.19347,-28.44297 c 0,0 26.76985,-6.69247 38.48164,0.83654 11.71183,7.52904 75.29021,40.15478 75.29021,40.15478 l 74.45364,71.10744 c 0,0 10.03869,17.56767 3.3462,25.09671 -6.69246,7.52904 -59.3956,47.68378 -59.3956,47.68378 l -52.70312,35.13546 c 0,0 -16.73114,24.26015 -25.93331,23.42361 -9.20211,-0.83639 -22.58703,12.54835 -35.97195,-22.58707 C 339.97127,-523.57536 285.595,-680.84818 285.595,-680.84818 Z"
-     id="path5" /><g
-     id="layer2"
-     transform="matrix(1.0654079,0,0,1.0654079,-42.483874,64.132117)"
-     style="fill:#333333"><path
-       style="fill:#333333;stroke:#000000;stroke-width:0;stroke-linejoin:bevel"
-       d="m 283.59613,-696.88857 18.05959,-3.14068 60.46036,-20.41519 c 0,0 14.13358,-4.71122 24.34117,6.28156 10.2076,10.99279 62.03076,47.11199 62.03076,47.11199 0,0 14.1336,10.2076 14.91879,17.27441 0.7852,7.06676 1.57038,29.83758 1.57038,29.83758 0,0 -7.06677,36.11914 -9.42239,40.83037 -2.35558,4.71128 -85.58673,70.66796 -85.58673,70.66796 0,0 -4.71117,10.99278 -14.13358,19.62998 -9.4224,8.63715 -28.26719,27.48195 -41.61558,29.05233 -13.34839,1.57062 -17.27439,11.77804 -56.53436,-19.62998 -39.25997,-31.40798 -30.62277,-67.52712 -30.62277,-67.52712 0,0 1.57038,-18.0596 -0.7852,-25.12641 -2.35559,-7.06676 -10.20759,-18.05955 -10.20759,-18.05955 0,0 -21.20039,-11.77804 -21.20039,-25.12641 0,-13.34837 -2.35559,-31.40797 -2.35559,-31.40797 l 3.14078,-16.48921 c 0,0 4.71117,-12.56318 15.70398,-14.91877 10.99281,-2.35564 4.71123,-10.99278 4.71123,-10.99278 0,0 4.71117,-7.06682 10.2076,-7.06682 5.49639,0 27.48198,-2.35564 27.48198,-2.35564 z"
-       id="path2" /><path
-       style="fill:#040407;stroke:#000000;stroke-width:0;stroke-linejoin:bevel;fill-opacity:1"
-       d="m 277.31455,-637.21341 c 0,0 -25.9116,5.49637 -18.0596,39.25998 7.852,33.76356 9.4224,50.25276 24.34118,58.10477 14.9188,7.85195 32.19317,20.41519 43.97117,-7.06681 11.77799,-27.482 -15.70399,-59.67517 -15.70399,-59.67517 z"
-       id="path3" /></g>
-                    </svg>
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                    <path d="M400-40q0-33 23.5-56.5T480-120v-208q-12-5-22.5-11.5T438-354l-88 56q-14 8-30.5 10.5T286-290l-180-51q-29-8-47.5-32.5T40-429q0-38 26.5-64.5T131-520h301q10-11 22-19t26-13v-137q0-17 6.5-32t18.5-26l137-128q23-22 53.5-25t56.5 13q32 20 41.5 56.5T783-762L624-499q7 12 10.5 26t4.5 29l108 26q16 4 29 14t21 24l91 164q15 27 11 57t-26 52q-27 27-64.5 27T744-107L560-291v171q33 0 56.5 23.5T640-40H400ZM160-760v-80h240v80H160Zm400 71v137q1 0 1.5.5t1.5.5l152-253q2-4 1-8.5t-5-6.5q-3-2-7.5-1t-6.5 3L560-689ZM40-600v-80h200v80H40Zm480 200q17 0 28.5-11.5T560-440q0-17-11.5-28.5T520-480q-17 0-28.5 11.5T480-440q0 17 11.5 28.5T520-400Zm-211 34 93-56q-1-5-1-9v-9H131q-5 0-8 3t-3 8q0 4 2 7t6 4l181 52Zm419 25-114-26q-2 2-4 5t-4 5l195 194q3 3 8 3t8-3q3-3 3.5-6.5T819-177l-91-164ZM120-120v-80h200v80H120Zm400-320Zm43-111ZM401-440Zm205 83Z"/></svg>
                     <span>Fleet</span>
                 </a>
             </li>
@@ -350,22 +273,24 @@
             I create immersive indoor drone videos for every type of property — from commercial spaces and offices to apartment complexes and industrial sites. By flying drones indoors, I produce seamless, high-impact video tours that elevate your marketing and give potential clients a unique, cinematic experience of your space.
          </p>
          <div class="cta-container">
-            <a href="#contact"><button class="cta-btn primary">Contact me for a demo</button></a>
+            <button class="cta-btn primary">Contact me for a demo</button>
             <button class="cta-btn secondary">Let’s take your space to the next level?</button>
          </div>
    </section>
+   </section>
 
 <section id="services-visuals">
+
   <div class="service-icons desktop">
     <div class="icons-col left">
-      <a href="real-estate.html"><div class="icon-item">
+      <div class="icon-item">
       <img src="icons/realEstate.svg" alt="Real-Estate" class="icon-glow" />
       <span>Real Estate</span>
-      </div></a>
-      <a href="resorts-and-hotels.html"><div class="icon-item">
+      </div>
+      <div class="icon-item">
       <img src="icons/resort.svg" alt="Resort" class="icon-glow" />
       <span>Resort</span>
-      </div></a>
+      </div>
       <div class="icon-item">
       <img src="icons/nature.svg" alt="Nature" class="icon-glow" />
       <span>Nature</span>
@@ -400,23 +325,23 @@
 
          <div class="illustration-slider">
             <div class="slide"><img src="images/main-fleet.webp"><p>A drone for every use, but always 4K</p></div>
-            <div class="slide"><img src="images/mapping.webp"><p>Local Icons | Key Locations | Cultural Sites</p></div>
+            <div class="slide"><img src="images/projectDevelopment.webp"><p>Local Icons | Key Locations | Cultural Sites</p></div>
             <div class="slide"><img src="images/sky-line.webp"><p>City Sky-line Shooting</p></div>
-            <div class="slide"><img src="images/company.webp"><p>Bring your construction projects to life with cinematic indoor drone footage!</p></div>
+            <div class="slide"><img src="images/premises.webp"><p>Bring your construction projects to life with cinematic indoor drone footage!</p></div>
             <!-- … fino a 10 … -->
          </div>
       </div>
 
   <!-- Mobile: Grid Layout 2 Columns -->
   <div class="service-icons mobile">
-      <a href="real-estate.html"><div class="icon-item">
+      <div class="icon-item">
          <img src="icons/realEstate.svg" alt="Real-Estate" class="icon-glow" />
          <span>Real Estate</span>
-      </div></a>
-      <a href="resorts-and-hotels.html"><div class="icon-item">
+      </div>
+      <div class="icon-item">
          <img src="icons/resort.svg" alt="Resort" class="icon-glow" />
          <span>Resort</span>
-      </div></a>
+      </div>
       <div class="icon-item">
          <img src="icons/nature.svg" alt="Nature" class="icon-glow" />
          <span>Nature</span>
@@ -1279,6 +1204,7 @@
        id="path5" /></g>
                </svg>
             </div>
+
          </div>
       </div>
     </section>
@@ -1303,12 +1229,14 @@
             </div>
          </div> 
 
+
+   <!-- Modal per il video ingrandito -->
    <div id="video-modal" class="hidden">
-      <div class="modal-backdrop"></div>
-         <div class="modal-content">
-            <button id="modal-close">&times;</button>
-            <iframe id="modal-iframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-         </div>
+   <div class="modal-backdrop"></div>
+   <div class="modal-content">
+      <button id="modal-close">&times;</button>
+      <iframe id="modal-iframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+   </div>
    </div>
 </section>
 </main>
@@ -1357,7 +1285,7 @@
          <details>
             <summary>How do you deliver my drone tour?</summary>
             <div class="faq-content">
-               <p>I produce high quality drone tours and deliver you the final video files. We can also host your drone tour using our free property website pages. You will be able to upload the video file of your drone tour to any social media platform.
+               <p>We produce high quality drone tours and deliver you the final video files. We can also host your drone tour using our free property website pages. You will be able to upload the video file of your drone tour to any social media platform.
                </p>
             </div>
          </details>
@@ -1369,7 +1297,7 @@
 <footer id="contact">
    <div class="footer-content">
       <h3>Ready to get up and fly?<br>Message me</h3>
-      <form class="contact-form" action="https://formspree.io/f/mbloqzdy" method="POST">
+      <form class="contact-form">
          <div class="form-grid">
             <input type="text" name="name" placeholder="Name" required>
             <input type="text" name="surname" placeholder="Surname" required>
@@ -1379,9 +1307,6 @@
          </div>
          <button type="submit" class="btn btn-primary">Launch Project</button>
       </form>
-   </div>
-   <div class="terms-policy">
-      <a href="https://www.termsfeed.com/live/1231983b-cab9-4da2-8773-f2902e6b34f3">Terms & conditions | Privacy Policy</a>
    </div>
 </footer>
 
