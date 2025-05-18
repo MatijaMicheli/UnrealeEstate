@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-=======
-@font-face {
-    font-family: 'Evidence';
-    src: url('EvidenceFont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
->>>>>>> 349283b (Initial commit clean)
 }
 
 :root {
@@ -21,7 +13,6 @@ html {
   --text-clr: #e6e6ef;
   --accent-clr: #5e63ff;
   --secondary-text-clr: #b0b3c1;
-<<<<<<< HEAD
   --menu-w: 60px;
 }
 
@@ -41,31 +32,20 @@ html {
   src: url('CherrySwash-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
-=======
->>>>>>> 349283b (Initial commit clean)
 }
 
 body {
   margin: 0;
-<<<<<<< HEAD
   font-family: 'Audiowide', Arial, sans-serif;
   background-color: black;
 }
 
-=======
-  background-color: black;
-  font-family: 'Arial', sans-serif;
-  color: var(--text-clr);
-}
-
-
->>>>>>> 349283b (Initial commit clean)
 #particles-js {
   position: fixed;
   width: 100%;
   height: 100%;
-<<<<<<< HEAD
-  z-index: 1;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* === SIDE-MENU === */
@@ -79,120 +59,6 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-=======
-  z-index: 0;
-}
-
-/* video nascosto fino al reveal */
-#video-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  max-width: max-content;
-  transition: opacity 1s ease-in-out;
-  z-index: 1;
-}
-
-#main-video {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 20px;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
--webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-}
-
-#hero {
-  position: relative;
-  height: 100vh;
-  margin-left: 60px;
-  width: calc(100vw - 60px);
-  transition: margin-left 0.3s ease;
-  overflow: visible; /* Modificato da hidden a visible */
-  z-index: 2; /* Aggiunto z-index */
-}
-
-
-
-#video-container.show {
-  opacity: 1;
-}
-
-/* SVG initially invisible and centered */
-.disegno-svg {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  z-index: 3;
-  transition: transform 1s ease-out, opacity 0.5s ease-out;
-}
-
-/* quando “show” viene aggiunto via JS */
-.disegno-svg.show {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-}
-
-/* dopo il reveal, posizioniamo SVG in alto */
-.disegno-svg.sticky {
-  top: 5%; 
-  left: 50%;
-  transform: translateX(-50%) scale(0.7);
-  opacity: 1;  
-  z-index: 3; 
-  transition:
-    transform 0.8s ease-in-out,
-    top 0.8s ease-in-out,
-    opacity 0.5s ease-in-out;
-}
-
-.disegno-svg svg path {
-  fill: white;
-  stroke: white;
-}
-
-.disegno-svg svg {
-  filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
-}
-
-/* 2) Effetto riflesso */
-.disegno-svg::after {
-  content: "";
-  position: absolute;
-  top: calc(50% + 1px);   
-  left: 50%;
-  transform: translateX(-50%) scaleY(-1); 
-  width: 100%;
-  height: 100%;
-  background: inherit; 
-  background-repeat: no-repeat;
-  background-position: center;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-  opacity: 0.4;    
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  25% { transform: scale(1.1); opacity: 0.9; }
-  50% { transform: scale(1); opacity: 1; }
-  75% { transform: scale(1.1); opacity: 0.9; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.pulse-twice {
-  animation: pulse 1s ease-in-out;
-}
-
-/* Side Menu */
-#side-menu {
-    position: fixed;
->>>>>>> 349283b (Initial commit clean)
     left: 0;
     top: 0;
     height: 100vh;
@@ -200,47 +66,22 @@ nav {
     background: rgba(17, 18, 26, 0.98);
     backdrop-filter: blur(15px);
     border-right: 1px solid var(--line-clr);
-<<<<<<< HEAD
     transition: width 0.3s ease;
     z-index: 10;
     overflow-x: visible;
     padding-top: 30px;
     font-family: 'Audiowide';
     will-change: transform, opacity;
-=======
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1000;
-    overflow-x: visible;
-    padding-top: 30px;
-    font-family: 'Evidence';
-}
-
-#side-menu:hover {
-    width: 240px;
-    overflow-x: visible;
-}
-
-#side-menu:hover ~ #hero {
-  margin-left: 240px;
-  width: calc(100vw - 240px);
-  transition: margin-left 0.3s ease, width 0.3s ease;
->>>>>>> 349283b (Initial commit clean)
 }
 
 #side-menu ul {
     list-style: none;
-<<<<<<< HEAD
     align-items: center;
     padding: 0;
     margin: 5px;
     width: 100%;
     height: 100%;
     min-height: auto;
-=======
-    padding: 0;
-    margin: 0;
-    width: 100%;
->>>>>>> 349283b (Initial commit clean)
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -255,7 +96,6 @@ nav {
     display: flex;
     align-items: center;
     gap: 15px;
-<<<<<<< HEAD
     padding: 12px;
 }
 
@@ -265,9 +105,6 @@ nav {
   justify-content: center;
   align-content: center;
   flex-direction: column;
-=======
-    padding: 15px;
->>>>>>> 349283b (Initial commit clean)
 }
 
 .menu-item > a {
@@ -288,15 +125,10 @@ nav {
 .menu-icon {
     width: 24px;
     height: 24px;
-<<<<<<< HEAD
-=======
-    min-width: 24px;
->>>>>>> 349283b (Initial commit clean)
     filter: invert(1);
     transition: transform 0.2s ease;
 }
 
-<<<<<<< HEAD
 #side-menu:hover {
     width: 240px;
     overflow-x: visible;
@@ -306,22 +138,11 @@ nav {
   margin-left: 240px;
   width: calc(100vw - 240px);
   transition: margin-left 0.3s ease, width 0.3s ease;
-=======
-.submenu-arrow {
-    width: 18px;
-    height: 18px;
-    margin-left: auto;
-    opacity: 0;
-    transform: rotate(-90deg);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    filter: invert(1);
->>>>>>> 349283b (Initial commit clean)
 }
 
 .menu-item span {
     opacity: 0;
     width: 0;
-<<<<<<< HEAD
     white-space: nowrap;
     overflow: hidden;
     transition: opacity 0.3s ease;
@@ -408,8 +229,6 @@ nav {
   }
   .has-submenu.submenu-open .submenu-arrow {
   transform: rotate(90deg);
-=======
->>>>>>> 349283b (Initial commit clean)
 }
 
 #side-menu:hover .menu-item span,
@@ -418,18 +237,14 @@ nav {
     width: auto;
 }
 
-<<<<<<< HEAD
 #side-menu:hover .menu-item > a {
     gap: 35px;
 }
 
-=======
->>>>>>> 349283b (Initial commit clean)
 #side-menu:hover .submenu-arrow {
     transform: rotate(0);
 }
 
-<<<<<<< HEAD
 .submenu-arrow {
     width: 16px;
     height: 16px;
@@ -439,52 +254,12 @@ nav {
 
 .menu-social {
     position: relative;
-=======
-/* Sub Menu */
-.sub-menu {
-    position: absolute;
-    left: 100%;
-    top: 0;
-    background: var(--base-clr);
-    border: 1px solid var(--line-clr);
-    border-radius: 0 8px 8px 0;
-    min-width: 200px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    padding: 10px 0;
-}
-
-.has-submenu:hover .sub-menu {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.sub-menu .menu-icon {
-    filter: invert(0.8);
-}
-
-.sub-menu a {
-    padding: 12px 20px;
-    font-size: 0.9em;
-    color: var(--text-clr);
-}
-
-.sub-menu a:hover {
-    background: var(--hover-clr);
-}
-
-.menu-social {
-    position: absolute;
-    bottom: 30px;
->>>>>>> 349283b (Initial commit clean)
     left: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 25px;
-<<<<<<< HEAD
     padding: 0;
     transition: all 0.3s ease;
     transform: none;
@@ -499,19 +274,11 @@ nav {
     position: sticky;
     padding: 20px 0;
     overflow: visible;
-=======
-    padding: 15px 0;
-    transition: all 0.3s ease;
->>>>>>> 349283b (Initial commit clean)
 }
 
 #side-menu:hover .menu-social {
     flex-direction: row;
     justify-content: center;
-<<<<<<< HEAD
-=======
-    gap: 20px;
->>>>>>> 349283b (Initial commit clean)
 }
 
 .social-icon {
@@ -532,18 +299,10 @@ nav {
   100% { transform: scale(1);   opacity: 1; }
 }
 
-<<<<<<< HEAD
-=======
-/* 2) Applichiamo l’animazione alle icone social con delay diversi */
->>>>>>> 349283b (Initial commit clean)
 .menu-social .social-icon {
   animation: slow-pulse 2.4s ease-in-out infinite;
 }
 
-<<<<<<< HEAD
-=======
-/* impostiamo un delay progressivo: 0s, 0.8s, 1.6s */
->>>>>>> 349283b (Initial commit clean)
 .menu-social .social-link:nth-child(1) .social-icon {
   animation-delay: 0s;
 }
@@ -556,7 +315,6 @@ nav {
   animation-delay: 1.6s;
 }
 
-<<<<<<< HEAD
 a:focus {
   outline: 2px solid var(--accent-clr);
   outline-offset: 2px;
@@ -618,7 +376,7 @@ a:focus {
   position: relative;
   max-width: 100%;
   transition: opacity 1s ease-in-out;
-  z-index: 2;
+  z-index: 1;
   overflow: hidden;
 }
 
@@ -928,13 +686,14 @@ main section {
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: 2;
-  overflow: hidden;
+  z-index: 10;
+  overflow: visible;
   display: block;
   border: 2px solid var(--accent-clr);
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  background-color: rgba(17, 18, 26, 0.8);
+  mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 98%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 98%, rgba(0, 0, 0, 0) 100%);
 }
 .illustration-slider:hover {
   transform: scale(1.01);
@@ -1217,6 +976,7 @@ main section {
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
+  opacity: 1;
 }
 
 .footer-content h3 {
@@ -1227,7 +987,7 @@ main section {
 }
 
 .contact-form {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.05);
   padding: 2rem;
   border-radius: 1rem;
   border: 1px solid var(--line-clr);
@@ -1311,7 +1071,7 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   padding: 2rem 2rem;
   margin-left: 60px;
-  z-index: 3;
+  z-index: 1;
 }
 
 .video-card {
@@ -1354,8 +1114,6 @@ h1 {
   color: var(--text-clr);
 }
 
-
-
 .logo-container {
   display: flex;
   flex-direction: column;
@@ -1374,8 +1132,8 @@ h1 {
   display: flex;
   justify-content: center;
   text-align: center;
-  margin: 10px;
-  margin-left: var(--menu-w);
+  margin: 10px auto;
+
 }
 
 /* === Real Estate Promo Section === */
@@ -1391,7 +1149,7 @@ h1 {
 
 #real-estate-promo .promo-images {
   position: relative;
-  z-index: 5; /* sopra le particles */
+  z-index: 5;
 }
 
 /* Container principale: mobile column, desktop row */
@@ -1563,13 +1321,64 @@ h1 {
  }
 
  .promo-text-center {
-  z-index: 10;
+  z-index: 1;
   text-align: center;
   max-height: 100%;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-  color: white;
-  margin: 10px auto;
+  color: var(--text-clr);
+  margin: 2rem auto;
+  position: relative;
+  background: transparent;
+  width: 80%;
+}
+
+.zoom-title {
+  font-size: 2.4rem;
+  display: inline-block;
+  animation: zoomBounce 0.8s ease-out forwards;
+  transform-origin: center;
+  color: var(--accent-clr);
+  margin: 20px 0;
+  transition: transform 0.2s ease, color 0.2s ease, filter 0.2s ease, text-shadow 0.2s ease;
+}
+
+@keyframes zoomBounce {
+  0% {
+    transform: scale(0.5) skewX(10deg);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  60% {
+    transform: scale(1.1) skewX(-2deg);
+    opacity: 1;
+    filter: blur(0);
+  }
+  80% {
+    transform: scale(0.95) skewX(1deg);
+  }
+  100% {
+    transform: scale(1) skewX(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Hover super-glowy */
+.zoom-title:hover {
+  color: #fff;
+  transform: scale(1.1) rotate(-1deg);
+  /* alone di testo per la luce */
+  text-shadow:
+    0 0 4px rgba(255,255,255,0.8),
+    0 0 10px var(--accent-clr),
+    0 0 20px var(--accent-clr),
+    0 0 30px rgba(94,99,255,0.6);
+  /* glow esterno extra via drop-shadow */
+  filter:
+    drop-shadow(0 0 6px var(--accent-clr))
+    drop-shadow(0 0 12px var(--accent-clr))
+    drop-shadow(0 0 18px rgba(94,99,255,0.4));
 }
 
 /* ---------- MEDIA QUERIES ---------- */
@@ -1617,13 +1426,13 @@ h1 {
   }
 
   #real-estate-promo .promo-text {
-    line-height: 2; /* o 1.8, 2.2 a piacere */
+    line-height: 2;
     margin-left: 20px;
   }
 
    .promo-benefits {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 40px;
   }
 
@@ -1688,7 +1497,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    margin-right: 12px;
+    margin: 0 auto;
   }
 
   .sub-menu {
@@ -1730,7 +1539,7 @@ h1 {
     padding: 10px 10px;
   }
 
-  .menu-item span
+  .menu-item span,
   .submenu-arrow {
     display: block;
     opacity: 0;
@@ -1784,7 +1593,6 @@ h1 {
 
   .menu-icon {
     min-width: 24px;
-    padding-right: 5px;
 }
 
   .menu-social {
@@ -1876,7 +1684,6 @@ h1 {
   .video-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
-    margin-left: 40px;
   }
 
   .videos-grid {
@@ -1945,84 +1752,4 @@ h1 {
     color: var(--accent-clr);
   }
   
-=======
-@media (max-width: 768px) {
-    .disegno-svg {
-      transform: translate(-50%, -50%) scale(0.4) !important;
-      margin-left: 30px;
-    }
-
-    #side-menu {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 60px;
-        height: 100vh;
-        backdrop-filter: blur(10px);
-        padding-top: 20px;
-        border-right: 1px solid var(--line-clr);
-        border-top: none;
-        z-index: 1000;
-        justify-content: flex-start;
-        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s;
-    }
-
-    #side-menu:hover {
-        width: 50px;
-    }
-
-    #side-menu ul {
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 20px;
-    }
-
-    .menu-item > a {
-        flex-direction: row;
-        padding: 12px 15px;
-    }
-
-    .sub-menu {
-        position: absolute;
-        top: -20;
-        width: 180px;
-        min-width: 200px;
-        border-radius: 0 8px 8px 0;
-        left: 100%;
-        transform: translateX(0);
-        max-height: 90vh;
-        overflow-y: auto;
-        z-index: 2000;
-        box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-        border-left: none;
-        margin-left: -1px; /* Allinea perfettamente col bordo */
-        transition: opacity 0.3s, transform 0.3s;
-        transform: translateX(1px);
-    }
-
-    .has-submenu.active .sub-menu {
-        transform: translateY(0);
-        max-height: none;
-    }
-
-    #side-menu:hover .sub-menu {
-        left: 100%;
-    }
-
-    #side-menu:hover ~ #hero {
-        margin-left: 240px;
-        width: calc(100vw - 240px);
-    }
-
-    #side-menu.submenu-active {
-        width: 60px;
-        overflow: visible;
-    }
-
-    #side-menu.submenu-active ~ #hero {
-        margin-left: 60px;
-        width: calc(100vw - 60px);
-    }
-
->>>>>>> 349283b (Initial commit clean)
 }
