@@ -1,11 +1,22 @@
+// @section: Initialization
+console.log("Start");
+
 // ------------------- particles.js initialization -------------------
 particlesJS("particles-js", {
   particles: {
     number: { value: 100, density: { enable: true, value_area: 800 } },
     color: { value: ["#ff6b00", "#ff9900", "#ffd500"] },
     shape: { type: "circle" },
-    opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
-    size: { value: 5, random: true, anim: { enable: true, speed: 3, size_min: 1, sync: false } },
+    opacity: {
+      value: 0.6,
+      random: true,
+      anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+    },
+    size: {
+      value: 5,
+      random: true,
+      anim: { enable: true, speed: 3, size_min: 1, sync: false }
+    },
     move: { enable: true, speed: 0.5, direction: "top", outMode: "out" }
   },
   interactivity: {
@@ -52,39 +63,55 @@ function initServicesScroll() {
   });
 }
 
-// ------------------- Mobile Side-Menu Toggle -------------------
-function initMenu() {
+// ------------------- Side-Menu Mobile & Dropdown -------------------
+function initSideMenu() {
   const sideMenu = document.getElementById('side-menu');
   if (!sideMenu) return;
 
-  // Toggle menu principale
-  const toggleMenu = (e) => {
-    e.stopPropagation();
-    sideMenu.classList.toggle('submenu-active');
-    
-    // Blocca lo scroll quando il menu è aperto
-    document.body.style.overflow = sideMenu.classList.contains('submenu-active') ? 'hidden' : '';
-  };
+  const submenuToggles = sideMenu.querySelectorAll('.submenu-toggle');
+  const submenuItems   = sideMenu.querySelectorAll('.has-submenu');
 
-  // Chiudi menu quando si clicca fuori
-  const closeMenu = (e) => {
-    if (!e.target.closest('#side-menu')) {
-      sideMenu.classList.remove('submenu-active');
-      document.body.style.overflow = '';
-    }
-  };
-
-  // Gestione eventi per touch e mouse
-  sideMenu.addEventListener('click', toggleMenu);
-  document.addEventListener('click', closeMenu);
-  document.addEventListener('touchstart', closeMenu);
-
-  // Miglioramento per submenu
-  sideMenu.querySelectorAll('.has-submenu').forEach(item => {
-    item.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
+  // 1) Toggle principale hamburger (solo su mobile)
+  const hamburgerLink = sideMenu.querySelector('.menu-item:first-child > a');
+  if (hamburgerLink) {
+    hamburgerLink.addEventListener('click', e => {
+      if (window.innerWidth < 768) {
         e.preventDefault();
-        item.classList.toggle('submenu-open');
+        e.stopPropagation();
+        sideMenu.classList.toggle('submenu-active');
+        document.body.style.overflow = sideMenu.classList.contains('submenu-active') ? 'hidden' : '';
+      }
+    });
+  }
+
+  // 2) Toggle sottomenù Services (click + touchstart)
+  submenuToggles.forEach(btn => {
+    ['click', 'touchstart'].forEach(evtType => {
+      btn.addEventListener(evtType, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const parent = btn.closest('.has-submenu');
+        parent.classList.toggle('submenu-open');
+      });
+    });
+  });
+
+  // 3) Chiudi tutto se clicchi o tocchi fuori
+  ['click', 'touchstart'].forEach(evtType => {
+    document.addEventListener(evtType, e => {
+      // chiudi dropdown
+      submenuItems.forEach(item => {
+        if (!e.target.closest('.has-submenu')) {
+          item.classList.remove('submenu-open');
+        }
+      });
+      // chiudi menu mobile
+      if (
+        !e.target.closest('#side-menu') &&
+        sideMenu.classList.contains('submenu-active')
+      ) {
+        sideMenu.classList.remove('submenu-active');
+        document.body.style.overflow = '';
       }
     });
   });
@@ -94,9 +121,15 @@ function initMenu() {
 (function() {
   function initSlideshow() {
     const slider = document.querySelector('.illustration-slider');
-    if (!slider) { console.error('[Slideshow] .illustration-slider non trovato'); return; }
+    if (!slider) {
+      console.error('[Slideshow] .illustration-slider non trovato');
+      return;
+    }
     const slides = Array.from(slider.querySelectorAll('.slide'));
-    if (!slides.length) { console.error('[Slideshow] nessuna slide trovata'); return; }
+    if (!slides.length) {
+      console.error('[Slideshow] nessuna slide trovata');
+      return;
+    }
 
     let current = 0, timerId = null;
     slides.forEach((s, i) => s.classList.toggle('active', i === 0));
@@ -107,7 +140,7 @@ function initMenu() {
       slides[current].classList.add('active');
     }
     function start() { if (timerId === null) timerId = setInterval(nextSlide, 4500); }
-    function stop() { if (timerId !== null) { clearInterval(timerId); timerId = null; } }
+    function stop()  { if (timerId !== null) { clearInterval(timerId); timerId = null; } }
 
     slider.addEventListener('mouseenter', stop);
     slider.addEventListener('mouseleave', start);
@@ -133,16 +166,10 @@ function initLogoSlideshow() {
   track.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
 }
 
-document.addEventListener('DOMContentLoaded', initMenu);
-document.addEventListener('DOMContentLoaded', initAnimations);
-document.addEventListener('DOMContentLoaded', initScrollEffect);
-document.addEventListener('DOMContentLoaded', initServicesScroll);
-document.addEventListener('DOMContentLoaded', initLogoSlideshow);
-
 // ------------------- Video Gallery Modal -------------------
 function initVideoGallery() {
-  const items = document.querySelectorAll('.video-item');
-  const modal = document.getElementById('video-modal');
+  const items    = document.querySelectorAll('.video-item');
+  const modal    = document.getElementById('video-modal');
   const modalFrame = document.getElementById('modal-iframe');
   const closeBtn = document.getElementById('modal-close');
   if (!modal || !modalFrame || !closeBtn) return;
@@ -154,52 +181,113 @@ function initVideoGallery() {
       modal.classList.remove('hidden');
     });
   });
-  closeBtn.addEventListener('click', () => { modal.classList.add('hidden'); modalFrame.src = ''; });
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    modalFrame.src = '';
+  });
   modal.querySelector('.modal-backdrop').addEventListener('click', () => closeBtn.click());
 }
 
-document.addEventListener('DOMContentLoaded', initVideoGallery);
-
 // ------------------- Portfolio Video Filters -------------------
 function initVideoFilters() {
-  const btns = document.querySelectorAll('.filter-btn');
+  const btns  = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.video-card');
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const filter = btn.dataset.filter;
-      cards.forEach(c => c.style.display = filter === 'all' || c.classList.contains(filter) ? '' : 'none');
+      cards.forEach(c => {
+        c.style.display = (filter === 'all' || c.classList.contains(filter)) ? '' : 'none';
+      });
     });
   });
 }
-document.addEventListener('DOMContentLoaded', initVideoFilters);
 
 // ------------------- Floating Labels & Form Validation -------------------
 function initForm() {
   document.querySelectorAll('.field-wrapper input, .field-wrapper textarea').forEach(f => {
     f.addEventListener('focus', () => f.parentNode.classList.add('focused'));
-    f.addEventListener('blur', () => { if (!f.value) f.parentNode.classList.remove('focused'); });
+    f.addEventListener('blur', () => {
+      if (!f.value) f.parentNode.classList.remove('focused');
+    });
   });
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('show');
+    });
   }, { threshold: 0.2 });
-  const contact = document.getElementById('contact'); if (contact) observer.observe(contact);
+
+  const contact = document.getElementById('contact');
+  if (contact) observer.observe(contact);
 
   const form = document.getElementById('contactForm');
-  if (form) form.addEventListener('submit', e => {
+if (form) {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
-    if (form.checkValidity()) form.querySelector('button').innerText = 'Inviato!';
-    else form.querySelectorAll(':invalid').forEach(el => el.classList.add('error'));
+    const feedback = form.querySelector('.form-feedback');
+    if (!form.checkValidity()) {
+      form.querySelectorAll(':invalid').forEach(el => el.classList.add('error'));
+      feedback.textContent = 'Per favore compila tutti i campi richiesti.';
+      return;
+    }
+    feedback.textContent = 'Inviando...';
+    const data = new FormData(form);
+    try {
+      const resp = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        feedback.textContent = 'Grazie! Il messaggio è stato inviato.';
+        form.reset();
+      } else {
+        feedback.textContent = 'Errore durante l’invio, riprova più tardi.';
+      }
+    } catch (err) {
+      console.error(err);
+      feedback.textContent = 'Connessione fallita.';
+    }
   });
 }
-document.addEventListener('DOMContentLoaded', initForm);
-
-// ------------------- Footer Animation -------------------
-function initFooterAnimation() {
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-  const footerText = document.querySelector('.footer-text');
-  if (footerText) setTimeout(() => footerText.classList.add('fade-in'), 500);
 }
-document.addEventListener('DOMContentLoaded', initFooterAnimation);
+
+
+// ------------------- Real Estate Promo Initialization -------------------
+function initRealEstatePromo() {
+  const promoEls = document.querySelectorAll('#real-estate-promo .promo-content > div');
+  if (!promoEls.length) return;
+
+  // 1) IntersectionObserver per fade-in delle colonne
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  promoEls.forEach(el => observer.observe(el));
+
+  // 2) Hover sulle icone dei benefit
+  document.querySelectorAll('.promo-benefits .benefit-icon').forEach(icon => {
+    icon.addEventListener('mouseenter', () => icon.classList.add('icon-glow'));
+    icon.addEventListener('mouseleave', () => icon.classList.remove('icon-glow'));
+  });
+}
+
+// ------------------- Avvio di tutti gli init al DOMContentLoaded -------------------
+document.addEventListener('DOMContentLoaded', () => {
+  initAnimations();
+  initScrollEffect();
+  initServicesScroll();
+  initSideMenu();
+  initLogoSlideshow();
+  initVideoGallery();
+  initVideoFilters();
+  initForm();
+  initFooterAnimation();
+  initRealEstatePromo();
+});
