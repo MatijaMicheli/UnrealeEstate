@@ -1,6 +1,3 @@
-// particles.js LIBRARY DEVE ESSERE INCLUSO PRIMA DI QUESTO SCRIPT
-// Aggiungi questo nel tuo HTML: <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
 // @section: Initialization
 document.addEventListener('DOMContentLoaded', () => {
   // ------------------- Particelle -------------------
@@ -77,48 +74,80 @@ function initServicesScroll() {
   });
 }
 
-// Menu laterale
 function initSideMenu() {
-  const sideMenu = document.getElementById('side-menu');
-  if (!sideMenu) return;
+    const sideMenu = document.getElementById('side-menu');
+    if (!sideMenu) return;
 
-  const submenuToggles = sideMenu.querySelectorAll('.submenu-toggle');
-  const submenuItems = sideMenu.querySelectorAll('.has-submenu');
+    const submenuToggles = sideMenu.querySelectorAll('.submenu-toggle');
+    const submenuItems = sideMenu.querySelectorAll('.has-submenu');
+    const menuLinks = sideMenu.querySelectorAll('.menu-item > a:not(.submenu-toggle)');
 
-  // Hamburger mobile
-  const hamburgerLink = sideMenu.querySelector('.menu-item:first-child > a');
-  if (hamburgerLink) {
-    hamburgerLink.addEventListener('click', e => {
-      if (window.innerWidth < 768) {
-        e.preventDefault();
-        sideMenu.classList.toggle('submenu-active');
-        document.body.style.overflow = sideMenu.classList.contains('submenu-active') ? 'hidden' : '';
-      }
+    // Hamburger mobile
+    const hamburgerLink = sideMenu.querySelector('.menu-item:first-child > a');
+    if (hamburgerLink) {
+        hamburgerLink.addEventListener('click', e => {
+            if (window.innerWidth < 768) {
+                e.preventDefault();
+                sideMenu.classList.toggle('submenu-active');
+                document.body.style.overflow = sideMenu.classList.contains('submenu-active') ? 'hidden' : '';
+            }
+        });
+    }
+
+    // Toggle sottomenù
+    submenuToggles.forEach(btn => {
+        ['click', 'touchstart'].forEach(evtType => {
+            btn.addEventListener(evtType, e => {
+                if (window.innerWidth < 768) {
+                    e.preventDefault();
+                    btn.closest('.has-submenu').classList.toggle('submenu-open');
+                }
+            });
+        });
     });
-  }
 
-  // Toggle sottomenù
-  submenuToggles.forEach(btn => {
+    // Gestione hover desktop
+    if (window.innerWidth >= 768) {
+        submenuItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.classList.add('submenu-open');
+            });
+            item.addEventListener('mouseleave', () => {
+                item.classList.remove('submenu-open');
+            });
+        });
+    }
+
+    // Chiudi menu mobile
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 768) {
+                sideMenu.classList.remove('submenu-active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+
+    // Click esterno
     ['click', 'touchstart'].forEach(evtType => {
-      btn.addEventListener(evtType, e => {
-        e.preventDefault();
-        btn.closest('.has-submenu').classList.toggle('submenu-open');
-      });
+        document.addEventListener(evtType, e => {
+            if (!e.target.closest('#side-menu')) {
+                if (window.innerWidth < 768) {
+                    sideMenu.classList.remove('submenu-active');
+                    document.body.style.overflow = '';
+                }
+                submenuItems.forEach(item => item.classList.remove('submenu-open'));
+            }
+        });
     });
-  });
 
-  // Chiudi menu
-  ['click', 'touchstart'].forEach(evtType => {
-    document.addEventListener(evtType, e => {
-      if (!e.target.closest('.has-submenu')) {
-        submenuItems.forEach(item => item.classList.remove('submenu-open'));
-      }
-      if (!e.target.closest('#side-menu') && sideMenu.classList.contains('submenu-active')) {
-        sideMenu.classList.remove('submenu-active');
-        document.body.style.overflow = '';
-      }
+    // Gestione resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+            sideMenu.classList.remove('submenu-active');
+            document.body.style.overflow = '';
+        }
     });
-  });
 }
 
 // Slideshow automatico
