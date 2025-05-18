@@ -1,0 +1,21 @@
+<<<<<<< HEAD
+*.log
+*.DS_Store
+*.tmp
+node_modules/
+.env
+
+=======
+# Ignora tutto
+/*
+
+# Ma includi solo questi file e cartelle specifici:
+!/.gitignore
+!/index.html
+!/script.js
+!/styles.css
+!/disegno.svg
+!/EvidenceFont.ttf
+!/mainTrailer.mp4
+!/icons/
+>>>>>>> 349283b (Initial commit clean)
