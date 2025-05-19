@@ -44,7 +44,8 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* === SIDE-MENU === */
@@ -375,7 +376,7 @@ a:focus {
   position: relative;
   max-width: 100%;
   transition: opacity 1s ease-in-out;
-  z-index: 2;
+  z-index: 1;
   overflow: hidden;
 }
 
@@ -685,13 +686,14 @@ main section {
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: 2;
-  overflow: hidden;
+  z-index: 10;
+  overflow: visible;
   display: block;
   border: 2px solid var(--accent-clr);
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  background-color: rgba(17, 18, 26, 0.8);
+  mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 98%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 98%, rgba(0, 0, 0, 0) 100%);
 }
 .illustration-slider:hover {
   transform: scale(1.01);
@@ -974,6 +976,7 @@ main section {
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
+  opacity: 1;
 }
 
 .footer-content h3 {
@@ -984,7 +987,7 @@ main section {
 }
 
 .contact-form {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.05);
   padding: 2rem;
   border-radius: 1rem;
   border: 1px solid var(--line-clr);
@@ -1068,7 +1071,7 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   padding: 2rem 2rem;
   margin-left: 60px;
-  z-index: 3;
+  z-index: 1;
 }
 
 .video-card {
@@ -1111,8 +1114,6 @@ h1 {
   color: var(--text-clr);
 }
 
-
-
 .logo-container {
   display: flex;
   flex-direction: column;
@@ -1131,8 +1132,8 @@ h1 {
   display: flex;
   justify-content: center;
   text-align: center;
-  margin: 10px;
-  margin-left: var(--menu-w);
+  margin: 10px auto;
+
 }
 
 /* === Real Estate Promo Section === */
@@ -1148,7 +1149,7 @@ h1 {
 
 #real-estate-promo .promo-images {
   position: relative;
-  z-index: 5; /* sopra le particles */
+  z-index: 5;
 }
 
 /* Container principale: mobile column, desktop row */
@@ -1320,13 +1321,64 @@ h1 {
  }
 
  .promo-text-center {
-  z-index: 10;
+  z-index: 1;
   text-align: center;
   max-height: 100%;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-  color: white;
-  margin: 10px auto;
+  color: var(--text-clr);
+  margin: 2rem auto;
+  position: relative;
+  background: transparent;
+  width: 80%;
+}
+
+.zoom-title {
+  font-size: 2.4rem;
+  display: inline-block;
+  animation: zoomBounce 0.8s ease-out forwards;
+  transform-origin: center;
+  color: var(--accent-clr);
+  margin: 20px 0;
+  transition: transform 0.2s ease, color 0.2s ease, filter 0.2s ease, text-shadow 0.2s ease;
+}
+
+@keyframes zoomBounce {
+  0% {
+    transform: scale(0.5) skewX(10deg);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  60% {
+    transform: scale(1.1) skewX(-2deg);
+    opacity: 1;
+    filter: blur(0);
+  }
+  80% {
+    transform: scale(0.95) skewX(1deg);
+  }
+  100% {
+    transform: scale(1) skewX(0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Hover super-glowy */
+.zoom-title:hover {
+  color: #fff;
+  transform: scale(1.1) rotate(-1deg);
+  /* alone di testo per la luce */
+  text-shadow:
+    0 0 4px rgba(255,255,255,0.8),
+    0 0 10px var(--accent-clr),
+    0 0 20px var(--accent-clr),
+    0 0 30px rgba(94,99,255,0.6);
+  /* glow esterno extra via drop-shadow */
+  filter:
+    drop-shadow(0 0 6px var(--accent-clr))
+    drop-shadow(0 0 12px var(--accent-clr))
+    drop-shadow(0 0 18px rgba(94,99,255,0.4));
 }
 
 /* ---------- MEDIA QUERIES ---------- */
@@ -1374,13 +1426,13 @@ h1 {
   }
 
   #real-estate-promo .promo-text {
-    line-height: 2; /* o 1.8, 2.2 a piacere */
+    line-height: 2;
     margin-left: 20px;
   }
 
    .promo-benefits {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 40px;
   }
 
@@ -1487,7 +1539,7 @@ h1 {
     padding: 10px 10px;
   }
 
-  .menu-item span
+  .menu-item span,
   .submenu-arrow {
     display: block;
     opacity: 0;
@@ -1685,6 +1737,7 @@ h1 {
    .promo-text-center {
     margin-left: 40px;
     width: calc(100% - var(--menu-w));
+    padding: 0 20px;
   }
 
 @media (hover: none) {
