@@ -1072,6 +1072,7 @@ h1 {
 }
 
 .video-card {
+  margin: 0 auto;
   position: relative;
   background: transparent;
   border: 1px solid var(--line-clr);
@@ -1218,7 +1219,6 @@ h1 {
   text-align: right;
   opacity: 1;
   max-height: 100%;
-  transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .promo-text h2 {
@@ -1334,7 +1334,7 @@ h1 {
   animation: zoomBounce 0.8s ease-out forwards;
   transform-origin: center;
   color: var(--accent-clr);
-  margin: auto;
+  margin: 20px auto;
   transition: transform 0.2s ease, color 0.2s ease, filter 0.2s ease, text-shadow 0.2s ease;
 }
 
@@ -1410,7 +1410,7 @@ h1 {
 
 .fancy-list li::before {
   counter-increment: fancy-counter;
-  content: counter(fancy-counter);
+  content: none;
   position: absolute;
   top: 50%;
   left: 1rem;
@@ -1781,6 +1781,7 @@ h1 {
     grid-template-columns: 1fr;
     gap: 1rem;
     margin-left: 50px;
+    padding-top: 20px;
   }
 
   .videos-grid {
@@ -1821,20 +1822,20 @@ h1 {
     #real-estate-promo .promo-text {
     text-align: center;
     width: calc(100% - var(--menu-w));
-    margin-left: 20px;
+    margin-left: 40px;
+  }
+
+  .fancy-list li {
+    margin: 1rem 0rem;
   }
 
   .promo-benefits {
-    flex-direction: column;
-    margin: auto 60px;
     justify-content: center;
-    padding: 0;
   }
 
    .promo-text-center {
-
-    margin: 20px auto;
-    padding-left: 30px;
+    width: calc(100% - var(--menu-w));
+    padding-left: 40px;
   }
 
 @media (hover: none) {
