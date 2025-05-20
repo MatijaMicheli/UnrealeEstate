@@ -495,7 +495,7 @@ main {
   width: calc(100% - var(--menu-w));
   z-index: 2;
   margin: 0px auto;
-  color: white;
+  color: var(--text-clr);
   text-align: center;
   box-sizing: border-box;
   max-width: none;
@@ -1033,7 +1033,6 @@ main section {
   }
 
 h1 {
-  padding: 1rem;
   font-size: 2rem;
   color: var(--secondary-text-clr);
   font-family: 'Audiowide';
@@ -1069,8 +1068,6 @@ h1 {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  padding: 2rem 2rem;
-  margin-left: 60px;
   z-index: 1;
 }
 
@@ -1166,7 +1163,6 @@ h1 {
 }
 
 /* Img buttons */
-
 .promo-img-wrapper {
   position: relative;
   overflow: visible;
@@ -1193,9 +1189,9 @@ h1 {
   pointer-events: auto;
   transform: translate(-50%, -50%) scale(1);
 }
-
 /* img buttons end */
 
+/* Promo Stuff */
 .promo-images {
   display: flex;
   flex-direction: column;
@@ -1247,7 +1243,7 @@ h1 {
   color: var(--text-clr);
 }
 .promo-text ul li::before {
-  content: "▶️";
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -1257,6 +1253,7 @@ h1 {
   opacity: 1;
   transform: translateY(0);
 }
+/* End Promo Stuff */
 
 .promo-benefits {
   display: flex;
@@ -1271,7 +1268,7 @@ h1 {
   align-items: center;
   gap: 0.75rem;
   cursor: default;
-  margin: 20px 30px;
+  margin: 20px 25px;
 }
 .promo-benefits .benefit-icon {
   width: 48px;
@@ -1317,7 +1314,6 @@ h1 {
 
  #real-estate-promo .promo-text {
   width: 100%;
-
  }
 
  .promo-text-center {
@@ -1327,19 +1323,18 @@ h1 {
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
   color: var(--text-clr);
-  margin: 2rem auto;
+  margin: 1rem auto;
   position: relative;
   background: transparent;
   width: 80%;
 }
 
 .zoom-title {
-  font-size: 2.4rem;
   display: inline-block;
   animation: zoomBounce 0.8s ease-out forwards;
   transform-origin: center;
   color: var(--accent-clr);
-  margin: 20px 0;
+  margin: auto;
   transition: transform 0.2s ease, color 0.2s ease, filter 0.2s ease, text-shadow 0.2s ease;
 }
 
@@ -1379,6 +1374,101 @@ h1 {
     drop-shadow(0 0 6px var(--accent-clr))
     drop-shadow(0 0 12px var(--accent-clr))
     drop-shadow(0 0 18px rgba(94,99,255,0.4));
+}
+
+.fancy-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem auto;
+  max-width: 600px;
+  counter-reset: fancy-counter;
+}
+@keyframes bgPulse {
+  0%   { background: rgba(30,30,40,0.6); }
+  50%  { background: rgba(40,40,50,0.6); }
+  100% { background: rgba(30,30,40,0.6); }
+}
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.fancy-list li {
+  position: relative;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(30, 30, 40, 0.6);
+  animation: bgPulse 8s ease-in-out infinite alternate;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.fancy-list li:hover {
+  transform: translateY(-3px);
+}
+
+.fancy-list li::before {
+  counter-increment: fancy-counter;
+  content: counter(fancy-counter);
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: var(--accent-clr);
+}
+
+.fancy-list .item-text {
+  margin-left: 2.5rem;
+  color: var(--text-clr);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.fancy-list .progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  overflow: hidden;
+  width: 0;
+  background: var(--accent-clr);
+  border-radius: 2px;
+  will-change: width;
+}
+.fancy-list .progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 50%;  height: 100%;
+  background: rgba(255,255,255,0.2);
+  transform: skewX(-25deg) translateX(-100%);
+  animation: shimmer 2.5s linear infinite;
+}
+/* ────────────────────────────────────────────── */
+/* Hover potenziato: barra piena + evidenziazioni */
+/* ────────────────────────────────────────────── */
+.fancy-list li:hover .progress-bar {
+  width: 100%!important; /* forza barra al 100% */
+  transition: width 0.4s ease-out;
+}
+
+.fancy-list li:hover::before {
+  color: #fff;
+  transform: translateY(-50%) scale(1.2);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.fancy-list li:hover .item-text {
+  color: var(--accent-clr);
+}
+
+/* ────────────────────────────────────────────── */
+/* Numeri lista (counter) più grandi all’hover    */
+/* ────────────────────────────────────────────── */
+.fancy-list li::before {
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 /* ---------- MEDIA QUERIES ---------- */
@@ -1434,6 +1524,11 @@ h1 {
     flex-direction: row;
     justify-content: space-around;
     padding: 0 40px;
+  }
+
+    .video-grid {
+    padding: 2rem 2rem;
+    margin-left: 60px;
   }
 
 }
@@ -1679,11 +1774,13 @@ h1 {
 
   #video-gallery { 
     height: auto; 
+    margin: 20px auto;
   }
   
   .video-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    margin-left: 50px;
   }
 
   .videos-grid {
@@ -1735,9 +1832,9 @@ h1 {
   }
 
    .promo-text-center {
-    margin-left: 40px;
-    width: calc(100% - var(--menu-w));
-    padding: 0 20px;
+
+    margin: 20px auto;
+    padding-left: 30px;
   }
 
 @media (hover: none) {
