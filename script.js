@@ -213,6 +213,28 @@ function initForm() {
   });
 }
 
+function initPromoZoomIn() {
+  const promo = document.getElementById('real-estate-promo');
+  if (!promo) return;
+
+  let hasAnimated = false;
+
+  function onScroll() {
+    const rect = promo.getBoundingClientRect();
+    const inView = rect.top <= window.innerHeight && rect.bottom >= 0;
+
+    if (inView && !hasAnimated) {
+      promo.classList.add('zoom-in');
+      hasAnimated = true;
+      window.removeEventListener('scroll', onScroll);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll);
+  // Controllo iniziale nel caso sia già visibile
+  onScroll();
+}
+
 // ──────────────────────────────────────────────────────────
 // 9) Slideshow automatico
 // ──────────────────────────────────────────────────────────
@@ -289,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initForm,
     initRealEstatePromo,
     initSlideshow,
+    initPromoZoomIn,
     initProgressBars
   ].forEach(fn => {
     try { fn(); }
