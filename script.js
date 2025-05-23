@@ -272,6 +272,78 @@ function initProgressBars() {
   });
 }
 
+function init3DSlider() {
+  const slider = document.querySelector('.slider');
+  const operas = document.querySelectorAll('.opera');
+  let currentIndex = 0;
+  let intervalId = null;
+
+  function updateSlides() {
+    operas.forEach((opera, index) => {
+      const angle = (index * 90) - (currentIndex * 90);
+      opera.style.transform = `
+        rotateY(${angle}deg) 
+        translateZ(300px)
+        ${index === currentIndex ? 'scale(1)' : 'scale(0.8)'}
+      `;
+      opera.classList.toggle('active', index === currentIndex);
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % operas.length;
+    updateSlides();
+  }
+
+  function startSlider() {
+    intervalId = setInterval(nextSlide, 4000);
+  }
+
+  function stopSlider() {
+    clearInterval(intervalId);
+  }
+
+  slider.addEventListener('mouseenter', stopSlider);
+  slider.addEventListener('mouseleave', startSlider);
+
+  // Inizializzazione
+  updateSlides();
+  startSlider();
+}
+
+// ──────────────────────────────────────────────────────────
+// 11) Animazione fancy-list con barra dorata semitrasparente
+// ──────────────────────────────────────────────────────────
+function initFancyListHighlight() {
+  const list = document.querySelector('.fancy-list');
+  if (!list) return;
+
+  const highlighter = document.createElement('div');
+  highlighter.className = 'list-highlighter';
+  list.appendChild(highlighter);
+
+  function updateHighlight(target) {
+    const rect = target.getBoundingClientRect();
+    const listRect = list.getBoundingClientRect();
+
+    highlighter.style.top = (target.offsetTop) + 'px';
+    highlighter.style.height = target.offsetHeight + 'px';
+  }
+
+  list.querySelectorAll('li').forEach(item => {
+    item.addEventListener('mouseenter', () => updateHighlight(item));
+  });
+
+  // Reset posizione al mouseleave
+  list.addEventListener('mouseleave', () => {
+    highlighter.style.top = '-100px'; // Nasconde la barra
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initFancyListHighlight();
+});
+
 // ──────────────────────────────────────────────────────────
 // Sezione inizializzazione principale
 // ──────────────────────────────────────────────────────────
@@ -312,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initRealEstatePromo,
     initSlideshow,
     initPromoZoomIn,
+    init3DSlider,
     initProgressBars
   ].forEach(fn => {
     try { fn(); }
