@@ -1615,7 +1615,10 @@ h1 {
   .promo-videos {
     justify-content: center;
     align-items: center;
+  }
 
+  .slider-3d-container {
+    margin-left: 20px;
   }
 
 }
@@ -1937,7 +1940,7 @@ h1 {
    .promo-text-center {
     width: calc(100% - var(--menu-w));
     padding-left: 40px;
-    margin-top: -20px;
+    margin-top: -40px;
   }
 
   .promo-content {
