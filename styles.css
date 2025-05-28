@@ -1556,8 +1556,7 @@ h1 {
 .clients-grid {
   padding: 4rem var(--gutter, 2rem);
   margin-left: var(--menu-w);
-  background: rgba(17,18,26,0.85);
-}
+  background: linear-gradient(to bottom, rgba(17, 18, 26, 0) 0px, rgba(17, 18, 26, 0.85) 50px, rgba(17, 18, 26, 0.85) 100%);}
 
 .clients-grid__container {
   display: grid;
