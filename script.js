@@ -11,7 +11,12 @@ function initRealEstatePromo() {
 function initAnimations() {
   const svgEl = document.querySelector('.disegno-svg');
   if (!svgEl) return;
+
+  // dopo 500ms facciamo il fade-in
   setTimeout(() => svgEl.classList.add('show'), 500);
+
+  // 2 secondi dopo il fade-in, lo spostiamo in alto a sinistra
+  setTimeout(() => svgEl.classList.add('move-to-corner'), 2500);
 }
 
 // ──────────────────────────────────────────────────────────

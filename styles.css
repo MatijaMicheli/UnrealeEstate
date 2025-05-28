@@ -343,15 +343,16 @@ a:focus {
 .disegno-svg {
   position: absolute;
   top: 2rem;
-  left: calc(var(--menu-w) + 50% - var(--menu-w)/2);  transform: translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
   opacity: 0;
-  transition: opacity 1s ease, transform 1s ease;
-  z-index: 3;
-  animation: pulse-glow 2.5s infinite ease-in-out;
-  will-change: transform, opacity;
+  transition:
+    opacity 1s ease,
+    transform 1s ease,
+    top 1s ease,
+    left 1s ease;
+  z-index: 4;
 }
-
-
 
 .disegno-svg::before {
   content: "";
@@ -369,7 +370,13 @@ a:focus {
 
 .disegno-svg.show {
   opacity: 1;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0) scale(1);
+}
+
+.disegno-svg.move-to-corner {
+  top: 1rem;
+  left: 1rem;
+  transform: translate(0, 0) scale(0.6);
 }
 
 #video-container {
@@ -1634,13 +1641,7 @@ h1 {
 @media(min-width: 769px) {
   .disegno-svg {
     cursor: pointer;
-    top: 20px;
   }
-
-  .disegno-svg svg {
-  width: 250px;
-  height: auto;
-}
 
   #main-video {
     max-height: 260px;
@@ -1710,8 +1711,24 @@ h1 {
   }
 
   .disegno-svg {
-    top: 20px;
-    transform: translateX(-50%) scale(0.2) !important;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-20%);
+    opacity: 0;
+    transition:
+      opacity 1s ease,
+      transform 1s ease,
+      top 1s ease,
+      left 1s ease;
+  }
+   .disegno-svg.show {
+    opacity: 1;
+    transform: translateX(-20%) scale(0.4);
+  }
+  .disegno-svg.move-to-corner {
+    top: 0.5rem;
+    left: calc(var(--menu-w)/2);
+    transform: translateX(-25%) translateY(-30%) scale(0.3);
   }
 
   .video-buttons {
@@ -1726,6 +1743,21 @@ h1 {
     position: relative;
     padding: 0.55rem 0.6rem;
   }
+
+  .zoom-title {
+    animation:
+      zoomBounce 0.8s ease-out forwards,
+      constantGlow 2s ease-in-out infinite alternate;
+    }
+    @keyframes constantGlow {
+    0%, 100% {
+      filter: drop-shadow(0 0 8px var(--accent-clr)) drop-shadow(0 0 16px rgba(94,99,255,0.5));
+    }
+    50% {
+      filter: drop-shadow(0 0 12px var(--accent-clr)) drop-shadow(0 0 24px rgba(94,99,255,0.7));
+    }
+  }
+
 
   #main-video {
     margin:0;
@@ -2051,6 +2083,8 @@ h1 {
   .slider-container:active .slide.front {
     box-shadow: 0 0 25px 15px rgba(255, 215, 0, 0.75); /* glow più potente */
   }
+
+}
 
 @media (hover: none) {
   .illustration-slider:active {
