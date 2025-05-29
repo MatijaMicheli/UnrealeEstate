@@ -362,10 +362,16 @@ a:focus {
   width: 140%;
   height: 140%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 80%);
-  filter: blur(40px);
-  z-index: -1;
-  animation: pulse-glow 2.5s infinite ease-in-out;
+  background: conic-gradient(
+      from 90deg at 50% 50%,
+      rgba(255,223,0,0.3),
+      rgba(255,223,0,0.1),
+      transparent 70%
+    );
+    border-radius: 50%;
+    filter: blur(30px);
+    z-index: -1;
+    animation: mobile-gold-fade 3s ease-in-out infinite;
 }
 
 .disegno-svg.show {
@@ -1718,13 +1724,38 @@ h1 {
     animation: none;
     opacity: 0;
   }
+   .disegno-svg::before {
+    background: conic-gradient(
+      from 90deg at 50% 50%,
+      rgba(255,223,0,0.3),
+      rgba(255,223,0,0.1),
+      transparent 70%
+    );
+    border-radius: 50%;
+    filter: blur(30px);
+    z-index: -1;
+    animation: mobile-gold-fade 3s ease-in-out infinite;
+  }
+  @keyframes mobile-gold-fade {
+    0%, 100% {
+      opacity: 0.2;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
    .disegno-svg.show {
     opacity: 1;
     transform: scale(0.3);
   }
   .disegno-svg.move-to-corner {
-    animation: none;
+    top: 0.5rem;
+    left: calc(var(--menu-w) + 1rem);
+    transform: scale(0.3);
     transition: none;
+    animation: none;
   }
 
   .video-buttons {
