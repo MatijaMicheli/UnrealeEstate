@@ -1719,7 +1719,8 @@ h1 {
     transform: scale(0.3);
     animation: none;
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    visibility: hidden;
+    transition: none;
   }
    .disegno-svg::before {
     content: "";
@@ -1751,15 +1752,19 @@ h1 {
     }
   }
    .disegno-svg.show {
-    opacity: 1;
-    transform: scale(0.3);
+    opacity: 0;
+    visibility: hidden;
   }
   .disegno-svg.move-to-corner {
+    position: absolute;
     top: 0.5rem;
     left: calc(var(--menu-w) + 1rem);
     transform: scale(0.3);
     transition: none;
     animation: none;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
   .video-buttons {
