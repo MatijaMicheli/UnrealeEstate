@@ -1603,16 +1603,6 @@ h1 {
   50% { transform: scale(1.1); opacity: 0.8; }
 }
 
-@keyframes pulseGlow {
-  0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 8px var(--accent-clr));
-  }
-  50% {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 16px var(--accent-clr));
-  }
-}
 @keyframes shine {
   0% {
     filter: drop-shadow(0 0 8px var(--accent-clr));
