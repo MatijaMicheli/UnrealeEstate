@@ -1562,6 +1562,7 @@ h1 {
 @media(min-width: 769px) {
   .disegno-svg {
     cursor: pointer;
+    position: absolute;
   }
 
   @keyframes slow-pulse {
